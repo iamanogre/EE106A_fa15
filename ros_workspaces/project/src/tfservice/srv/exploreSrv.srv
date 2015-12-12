@@ -1,0 +1,7 @@
+string zumy
+float32[] position
+float32[] photo_data
+bool finished
+---
+float32[] position
+bool hard_stop
