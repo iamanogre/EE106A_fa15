@@ -36,6 +36,9 @@
      	<div class="twelve columns" id="intro"><h2>Introduction</h2></div>
      	<div class="twelve columns"><h3>EE106A Fall 2015 Final Project</h3>
      	<h3>"Simulating the exploration of an unknown planet"<!--make with cool text--></h3>
+      <p>The end goal of this project was to have three light sensing zumies searching an area and they have a local network with them. When one finds the highest intensity of light, it signals to the others to go to it.</p>
+      <p>This is an interesting project because it combines light sensing with zumies and no one’s done that before. Also multiple zumies running in tandem. Having them all coordinate. Interesting problems that we had to solve were the interconnection networks in ROS to communicate to all three Zumies. We were able to create a unique system and we will expand upon it later in the report.Need to figure out position tracking.</p>
+      <p>In what real-world robotics applications could the work from your project be useful? Autonomous land/planet exploration and they can charge themselves.</p>
      	</div>
    	</div>
  
@@ -56,12 +59,50 @@
             <li>Find area of highest light intensity to charge their cells</li>
           </ul>
         </ol>
+        <h3>Design Outcome / Describe the design you chose.</h3>
+        <p>*position tracking
+  Must meet using landmark AR tags + kalman filter.
+  Only came out to be landmark AR tags + global camera.
+*area exploration.
+  Split area to explore evenly between zumies. Get a zumy to send a signal when it sees area of highest exploration. Other zumies gather to it.
+  Need to outfit zumy with photocells + camera.</p>
+        <p>start off with an overview of the final design showing the entire setup and then we explain each section of the design in more details (below) - use pictures/diagrams whenever you can.
+*position tracking
+  Only working with landmark AR tags + global camera.
+  Created a node called tf_service and this took tf from readings off of the zumy, converted them into positions + orientation of zumy area from conversion of quaternion & vector 3 to rotations into position and theta angle.
+  Created a node called global_service and this takes tf readings from the global camera and because it takes the tf between the zumy’s it is looking at and the origin tag, does same processing as above and returns the position and theta of the zumy.
+*area exploration.
+  Made an explorer node that created a service with the light tracking zumies and this node told them where to go after reading each zumy’s light and position data. Explorer node split area to explore evenly between zumies, was in charge of the keepExploring flag and got the zumies to travel to each other. Can also issue hard stops. 
+    *zumy design
+  Outfitted zumy with photocells. Talk about zumy design. Zumy has Microsoft lifecam mounted on it. Breadboard taped on it’s back and voltage dividers. Wires stick to the front of it into its analog pins for readings. Had to calibrate and find the right sensors that gave off similar readings.
+*zumy controller
+  Each zumy has a controller node. This node takes in the zumy’s photo data and when the zumy sees an AR tag, takes the position and theta from the tf_service, or when the zumy does not see an AR tag, takes the position readings from the global_service. Controller takes both of these and sends this data to the explorer node. What gets back is a position it should make the zumy go to. The Controller knows the position of the zumy and calculates the correct twist to make and sends this twist to the zumy to go to.
+</p>
+
+        <h3>What design choices did you make when you formulated your design? What tradeoffs did you have to make?</h3>
+        <p>Traded kalman filter for global camera. Did not add noise to the global camera reading, but should have to simulate reality. 
+We decided to keep all of our services separate simply to be able to easily debug. Ideally, we would have combined these 3 services into 1. This one service would basically generate its own positions and thetas from parsing through all the tf’s, maintain a position and theta of each zumy, read in photo data readings from the zumy, do all the computation of the three services, and would effectively publish only a twist to each zumy.</p>
+        <h3>How do these design choices impact how well the project meets design criteria which would be encountered in a real engineering application, such as robustness, durability, and efficiency?</h3>
+        <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
       </div>
    	</div>
  
    	<div class="row" id="implementation">
      	<div class="twelve columns">
         <h2>Implementation</h2>
+          <h3>Describe any hardware you used or built. Illustrate with pictures and diagrams.</h3>
+          <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
+<p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library, which returns transforms used in our tracking algorithm</p><p>
+Photoresistor - light sensitive resistor. Has variable resistance that changes with exposure to light</p><p>
+Voltage divider circuit - simple circuit taking advantage of photoresistor’s dynamic resistance to output a variable voltage</p>
+        <h3>Parts</h3>
+        <p>
+Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf topic.  
+</p>
+        <h3>Describe any software you wrote in detail. Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.</h3>
+        <p>Pictures of services and stuff</p>
+        <h3>How does your complete system work? Describe each step.</h3>
+        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup bash stuff</p>
       </div>
    	</div>
  
