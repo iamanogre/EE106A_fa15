@@ -30,17 +30,18 @@
     <!-- Abstract and preview so people know what's happening-->
 
     <div class="row" style="padding-top:2em;">
-    <h1>Zumy Light Exploration</h1>
-    <p style="text-align:center;"><img src="img/ZumyIllustration.jpg" alt="Zumy"></p>
+      <div class="twelve columns">
+        <h1>Zumy Light Exploration <span style="float:right">EE106A Fall 2015 Final Project</span></h1>
+       	<h3>"Simulating the exploration of an unknown planet"<!--make with cool text--></h3>
+      </div>
     </div>
 
-   	<div class="row">
-     	<div class="twelve columns" id="intro"><h2>Introduction</h2></div>
-     	<div class="twelve columns"><h3>EE106A Fall 2015 Final Project</h3>
-     	<h3>"Simulating the exploration of an unknown planet"<!--make with cool text--></h3>
-      <p>The end goal of this project was to have three light sensing zumies searching an area and they have a local network with them. When one finds the highest intensity of light, it signals to the others to go to it.</p>
-      <p>This is an interesting project because it combines light sensing with zumies and no one’s done that before. Also multiple zumies running in tandem. Having them all coordinate. Interesting problems that we had to solve were the interconnection networks in ROS to communicate to all three Zumies. We were able to create a unique system and we will expand upon it later in the report.Need to figure out position tracking.</p>
-      <p>In what real-world robotics applications could the work from your project be useful? Autonomous land/planet exploration and they can charge themselves.</p>
+    <div class="row">
+      <div class="twelve columns" id="intro">
+        <h2>Introduction</h2>
+        <p>The end goal of this project was to have three light sensing zumies searching an area and they have a local network with them. When one finds the highest intensity of light, it signals to the others to go to it.</p>
+        <p>This is an interesting project because it combines light sensing with zumies and no one’s done that before. Also multiple zumies running in tandem. Having them all coordinate. Interesting problems that we had to solve were the interconnection networks in ROS to communicate to all three Zumies. We were able to create a unique system and we will expand upon it later in the report.Need to figure out position tracking.</p>
+        <p>In what real-world robotics applications could the work from your project be useful? Autonomous land/planet exploration and they can charge themselves.</p>
      	</div>
    	</div>
  
@@ -87,8 +88,8 @@ We decided to keep all of our services separate simply to be able to easily debu
         <h3>How do these design choices impact how well the project meets design criteria which would be encountered in a real engineering application, such as robustness, durability, and efficiency?</h3>
         <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
       </div>
-   	</div>
- 
+    </div>
+
    	<div class="row" id="implementation">
      	<div class="twelve columns">
         <h2>Implementation</h2>
@@ -101,6 +102,10 @@ Voltage divider circuit - simple circuit taking advantage of photoresistor’s d
         <p>
 Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf topic.  
 </p>
+
+        <h3>Zumy</h3>
+        <p style="text-align:center;"><img src="img/ZumyIllustration.jpg" alt="Zumy"></p>
+
         <h3>Describe any software you wrote in detail. Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.</h3>
         <p>Pictures of services and stuff</p>
         <h3>How does your complete system work? Describe each step.</h3>
