@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "tfservice")
-set(tfservice_MAINTAINER "ee106a-tb <ee106a-tb@todo.todo>")
-set(tfservice_DEPRECATED "")
-set(tfservice_VERSION "0.0.0")
-set(tfservice_BUILD_DEPENDS "message_generation" "roscpp" "rospy" "std_msgs")
-set(tfservice_RUN_DEPENDS "message_runtime" "tf2_msgs")
-set(tfservice_BUILDTOOL_DEPENDS "catkin")
