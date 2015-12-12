@@ -42,12 +42,12 @@
    	<div class="row" id="design">
      	<div class="twelve columns">
         <h2>Design</h2>
-        <h3>Design Goals and Desired Functionality</h3>
+        <h3>Design Goals and Objectives</h3>
         <ol>
           <li>Position system</li>
           <ul>
             <li>Mounted camera's for realistic exploration</li>
-            <li>AR tags which act as objects of known positions<li>
+            <li>AR tags which act as objects of known positions</li>
             <li>Kalman Filter (IMU's) for estimating position</li>
           </ul>
           <li>Exploration and Light Sensing</li>
@@ -114,6 +114,16 @@
             <td>Current code can easily be expanded to account for more zumies</td>
           </tr>
         </table>
+
+        <h3>Summary</h3>
+        <p>Successfully met attainable objectives, but not reach goals, such as using 3 Zumies.</p>
+
+        <h3>Future Improvements</h3>
+        <ul>
+          <li>Combine all services into one package that takes all the information around the system, parses through all of it, and simply issues each zumy a twist.</li>
+          <li>Implement more permanent solutions, i.e. remove the global camera and use the Kalman Filter.</li>
+          <li>Eliminate the use of AR tags by simply using image detection algorithms and by only using the Zumy's cameras.</li>
+        </ul>
       </div>
    	</div>
  
