@@ -16,3 +16,7 @@ div {
   text-align: justify;
   text-justify: inter-word;
 }
+
+.excess {
+  margin-top:-2em;
+}
