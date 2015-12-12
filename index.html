@@ -11,10 +11,7 @@
  <body>
  
  <!-- .container is main centered wrapper -->
- <div {
-    width: 100%;
-    word-wrap: break-word;
-  } class="container">
+ <div class="container" style="width:100%; word-wrap:break-word;">
      <div class="row" style="position:fixed;background-color:#FFFFFF;margin-top:-5px;">
       <div class="twelve columns" style="margin:0;padding:0;">
         <a class="button" href="#intro"> Introduction</a>
@@ -28,22 +25,7 @@
     </div>
 </div>
 
- <div {
-    width: 100%;
-    word-wrap: break-word;
- } class="container">
- 
-    <div class="row" style="position:fixed;background-color:#FFFFFF;margin-top:-10px;margin-bottom:-10px;">
-      <div class="twelve columns">
-        <a class="button" href="#intro"> Introduction</a>
-        <a class="button" href="#design">Design</a>
-        <a class="button" href="#implementation">Implementation</a>
-        <a class="button" href="#result">Results</a>
-        <a class="button" href="#conclusion">Conclusion</a>
-        <a class="button" href="#team">Team</a>
-        <a class="button" href="#add_materials">Additional Materials</a>
-      </div>
-    </div>
+ <div class="container" style="width:100%;word-wrap:break-word;">
 
    	<div class="row" style="padding-top:2em;">
      	<div class="twelve columns" id="intro"><h1>Introduction</h1></div>
@@ -97,6 +79,25 @@
             <td>Exploration</td>
             <td>Split region between 2 Zumies</td>
             <td>Split region between Zumies</td>
+          </tr>
+        </table>
+
+        <h3>Difficulties</h3>
+        <table class="u-full-width">
+          <thead>
+            <td>Deviations</td>
+            <td>Temporary Fix</td>
+            <td>More Permanent Solution</td>
+          </thead>
+          <tr>
+            <td>Kalman Filter with accelerometer was not very accurate making <span>position tracking</span> difficult</td>
+            <td>Used a global camera to look at Zumies to simulate a system that can keep track of Zumy if it doesn't find an AR tage and origion to find orientation</td>
+            <td>Possible solutions include:<br>- Improve filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate distance</td>
+          </tr>
+          <tr>
+            <td>Using only 2 Zumies, only 1 has light sensors</td>
+            <td></td>
+            <td>Current code can easily be expanded to account for more zumies</td>
           </tr>
         </table>
       </div>
