@@ -18,7 +18,11 @@ div {
 }
 
 .excess {
-  margin-top:-2em;
+  margin-top:-3em;
+}
+
+.header {
+  font-weight: bold;
 }
 
 /*
