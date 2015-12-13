@@ -244,14 +244,14 @@
           </div>
         
           
-        <h5 class="under">System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h5>
+        <h5 class="under">System Architecture</h5>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
         <ul>
-        <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]<br>The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7 under the How to Run Guide.<br>Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout) and specifies the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
+        <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]<br>The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7, Additional Materials.<br>Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout), specifing the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
         <li><strong>tf</strong><br>Message Published: TFMessage [found in tf2_msgs]
         <br>There are a variety of nodes that publish onto this topic.
-        <br>The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b. The Transform information encapsulated by the TFMessage from a usb_cam_zumy3b comes the Zumy's camera.
+        <br>The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b's camera readings.
         <br>The other node that publishes to the tf topic is the global camera. The Transform encapsulated in it's TFMessage is the Transform between the origin tag to the Zumy's tag in the field.
         <br>TFMessage is also another complex message type. The fields to pay close attention to are its TFMessage.transforms[0].child_frame_id, which contains the publishing node (usb_cam or usb_cam_zumyxx) and TFMessage.transforms[0].transform, which contains the Transform.
         </li>
