@@ -66,6 +66,17 @@
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">2. Design</h2>
+
+        <h5 class="under">Simple Terminology</h5>
+          <p><strong>Zumy</strong> - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
+          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
+          communicate with the Kalman filter. 
+          <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
+          <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
+
+          <p style="text-align:center;"><img src="img/termin.png" alt="Flow Chart" style="width:100%; 
+          height:auto;"></p>
+
         <h5 class="under">Initial Design</h5>
         <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera in an effort to simulate realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. 
         From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and 
@@ -117,8 +128,7 @@
 
         <p style="text-align:center;"><img src="img/setup.png" alt="Setup" style="width:100%; height:auto;"></p>
 
-        <p><strong>Zumy Setup</strong><br>The Zumy was modfied in order to attach light sensors, mounted AR tags as well as a 
-        mounted camera and these modifications are shown in the figures below.</p>
+        <p><strong>Zumy Setup</strong><br>The Zumy was modfied in order to attach light sensors, an AR tag, and a camera. These modifications are shown in the figures below.</p>
 
         <p style="text-align:center;"><img src="img/ZumyIllustration.jpg" alt="Zumy" style="width:100%; height:auto;"></p>
 
@@ -158,16 +168,6 @@
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">3. Implementation</h2>
-
-          <h5 class="under">Simple Terminology</h5>
-          <p><strong>Zumy</strong> - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
-          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
-          communicate with the Kalman filter. 
-          <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
-          <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
-
-          <p style="text-align:center;"><img src="img/termin.png" alt="Flow Chart" style="width:100%; 
-          height:auto;"></p>
 
           <h5 class="under">Positioning System</h5>
 
