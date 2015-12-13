@@ -60,24 +60,36 @@
         <p>In terms of exploring, the three Zumies would explore an equal region in the field and when one of them found a sufficient source of light to charge its solar cells, it would signal to the others to stop searching. The other Zumies would stop searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
 
         <h3>Final Design</h3>
-        <p>*position tracking
-  Must meet using landmark AR tags + kalman filter.
-  Only came out to be landmark AR tags + global camera.
-*area exploration.
-  Split area to explore evenly between zumies. Get a zumy to send a signal when it sees area of highest exploration. Other zumies gather to it.
-  Need to outfit zumy with photocells + camera.</p>
-        <p>start off with an overview of the final design showing the entire setup and then we explain each section of the design in more details (below) - use pictures/diagrams whenever you can.
-*position tracking
-  Only working with landmark AR tags + global camera.
-  Created a node called tf_service and this took tf from readings off of the zumy, converted them into positions + orientation of zumy area from conversion of quaternion & vector 3 to rotations into position and theta angle.
-  Created a node called global_service and this takes tf readings from the global camera and because it takes the tf between the zumy’s it is looking at and the origin tag, does same processing as above and returns the position and theta of the zumy.
-*area exploration.
-  Made an explorer node that created a service with the light tracking zumies and this node told them where to go after reading each zumy’s light and position data. Explorer node split area to explore evenly between zumies, was in charge of the keepExploring flag and got the zumies to travel to each other. Can also issue hard stops. 
-    *zumy design
-  Outfitted zumy with photocells. Talk about zumy design. Zumy has Microsoft lifecam mounted on it. Breadboard taped on it’s back and voltage dividers. Wires stick to the front of it into its analog pins for readings. Had to calibrate and find the right sensors that gave off similar readings.
-*zumy controller
-  Each zumy has a controller node. This node takes in the zumy’s photo data and when the zumy sees an AR tag, takes the position and theta from the tf_service, or when the zumy does not see an AR tag, takes the position readings from the global_service. Controller takes both of these and sends this data to the explorer node. What gets back is a position it should make the zumy go to. The Controller knows the position of the zumy and calculates the correct twist to make and sends this twist to the zumy to go to.
-</p>
+        <p>The project was an overall successful and the majority of the initial objectives were met – the most notable difference with the initial design is that the Kalman Filter was not implemented. This is because the readings from the accelerometer of the IMU (Inertial Measuring Unit) were found to be unreliable. It was decided that a global camera, overlooking the entire exploration area would be used to simulate the Kalman Filter. Similarly, it would only provide information to the Zumy when the mounted camera could not see an AR tag.</p>
+        <p>Furthermore, although it was initially planned to use multiple Zumies searching an area for light, only one Zumy was used for photo-detection as there were limited Zumies available in the department. All of the software was designed to allow multiple Zumies to explore and thus it is easy to expand the project to multiple Zumies. A second Zumy, without light sensors or a mounted camera, was added and told to explore to show that once a Zumy discovers a strong enough light source, all exploration Zumies would assemble at this point.</p>
+        <p>The table below shows the main differences of the final design relative to the initial objectives:</p>
+        <table class="u-full-width">
+          <thead>
+            <td></td>
+            <td>Achieved</td>
+            <td>Objective</td>
+          </thead>
+          <tr>
+            <td>Positioning System</td>
+            <td>4 Landmark AR tags<br>Mounted Camera<br><strong>Global Camera</strong></td>
+            <td>AR tags<br>Mounted Cameras<br><strong>Kalman Filter</strong></td>
+          </tr>
+          <tr>
+            <td>Light Sensing</td>
+            <td>1 Zumy with 4 light sensors</td>
+            <td>Each Zumy has light sensors</td>
+          </tr>
+          <tr>
+            <td>Exploration</td>
+            <td>Split region between 2 Zumies</td>
+            <td>Split region between Zumies</td>
+          </tr>
+        </table>
+
+        <p>The photograph below shows the final setup which was used for the project. It should be noted that the global camera cannot be seen but is overlooking the exploration region. Of further note is that the region is split equally in two parts between the Zumies. The top part is explored by the un-sensorised whilst the lower part is explored by the Zumy with sensors. A patch of bright light was added so that the Zumies stop exploring once it has been found.</p>
+
+        <p style="text-align:center;"><img src="img/setup.png" alt="Setup" style="width:100%; height:auto;"></p>
+
 
         <h3>Design Choices and Tradeoffs</h3>
         <p>Traded kalman filter for global camera. Did not add noise to the global camera reading, but should have to simulate reality. 
@@ -124,11 +136,11 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <li><strong>explore_service</strong> - Controller Initiated<br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished<br>Service Response: float32[] position, bool hard_stop<br>explanation</li>
         </ul>
 
-        <p><strong>System Architecture Summary</strong></p>
+        <p><strong>System Architecture Visual</strong></p>
         <p>Pictures of services and stuff</p>
 
         <h3>System Architecture <!-- Describe each step.--></h3>
-        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup bash stuff</p>
+        
       </div>
    	</div>
  
@@ -150,28 +162,6 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
         <h2 class="header">5) Conclusion</h2>
         <h3>Final Design Overview / Results. How well did your finished solution meet your design criteria?</h3>
         <p>Have a nice table showing our design criteria and comparing it to the final design criteria - explain why they are not the same if so</p>
-        <table class="u-full-width">
-          <thead>
-            <td></td>
-            <td>Achieved</td>
-            <td>Objective</td>
-          </thead>
-          <tr>
-            <td>Positioning System</td>
-            <td>4 Landmark AR tags<br>Mounted Camera<br><span style="color:red">Global Camera</span></td>
-            <td>AR tags on each Zumy<br>Mounted Cameras<br><span style="color:red">Kalman Filter</span></td>
-          </tr>
-          <tr>
-            <td>Light Sensing</td>
-            <td>1 Zumy with 4 light sensors</td>
-            <td>Each Zumy has light sensors</td>
-          </tr>
-          <tr>
-            <td>Exploration</td>
-            <td>Split region between 2 Zumies</td>
-            <td>Split region between Zumies</td>
-          </tr>
-        </table>
 
         <h3>Difficulties. Does your solution have any flaws or hacks? </h3>
 
@@ -228,7 +218,8 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
         <h2 class="header">7) Additional Materials</h2>
         <h3>Code / Code, URDFs, and launch files you wrote</h3>
         <p>Link to github</p>
-        <h3>Guide to Running the code</h3>
+        <h3>How to Run Guide</h3>
+        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup bash stuff</p>
         <h3>Datasheets for components used in your solution</h3>
         <p>photocells, 10 k-ohm resistors</p>
       </div>
