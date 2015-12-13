@@ -344,7 +344,7 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
         <p>The goal of this project was to have Zumies explore an area to find light and signal to other Zumies to go to it. Our system accomplishes this goal. There were a few problems, such as the Kalman Filter, that lead to deviations from our original plan, but 
         ultimately, our system is modulized in a way that makes it relatively simple to switch out the alterations. There is 
         definitely room for improvement and there are others ways to use it beyond its original functionality. One of the most prominent is using the Zumies to
-        carry plants to well lit areas throughout the day and to possibly carry these plants on other planets.</p>
+        carry plants to well-lit areas throughout the day and to possibly carry these plants on other planets.</p>
         
         <h5 class="under">Initial Designs, Problems, and Fixes </h5>
 
@@ -357,36 +357,34 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
             <td><strong>More Permanent/Desirable Solution</strong></td>
           </thead>
           <tr>
-            <td>Use the IMU service to estimate position. However, the Kalman Filter, based off accelerometer readings, was not very accurate making <span>position tracking</span> difficult.</td>
+            <td>Use the IMU service to estimate position. However, the Kalman Filter, based off accelerometer readings, was not very accurate, making position tracking difficult.</td>
             <td>Used a global camera. We required an AR tag on each Zumy as well as an origin tag.</td>
             <td>- Improved filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate 
             distance</td>
           </tr>
           <tr>
-            <td>Use a Zumy's camera transform to landmark AR tag to calcuate orientation relative to global origin but difficulty 
-            getting the right transform</td>
-            <td>Used one more AR tag at origin and the global camera and the ar_track_alvar library to get the transform</td>
-            <td>Use better filter and more accurate gyroscope to keep track and update orientation</td>
+            <td>Originally planned to not use an origin AR tag with the global camera and instead use a Landmark AR tag for reference. Camera difficulties with angles and RVIZ displays lead to poor, fluctuating readings.</td>
+            <td>AR tag at the origin as the primary reference for the global camera and the second Zumy required a mounted AR tag.</td>
+            <td>Solutions similar to the above.</td>
           </tr>
           <tr>
            <td> Use 3 Zumies. Lack of available dedicated Zumies made it difficult to secure 3 to setup sensors on.</td>
-            <td>Use 2 Zumies, one with light sensors be the one to "find" the light and one without.</td>
-            <td>Current code can easily be expanded to account for more Zumies and setting up more light sensors on another Zumy is not very difficult.</td>
+            <td>Used 2 Zumies, one with light sensors be the one to "find" the light and one without.</td>
+            <td>Current code can easily be expanded to account for more Zumies and setting up more light sensors on another Zumy requires medium overhead.</td>
           </tr>
         </table>
 
         <h3>Future Improvements</h3>
         <ul>
           <li>Combine all services into one package that takes all the information around the system, parses through all of it, and
-          simply issues each zumy a twist.</li>
+          simply issues each Zumy a twist.</li>
           <li>Implement more permanent solutions, i.e. remove the global camera and use the Kalman Filter.</li>
-          <li>Eliminate the use of AR tags by simply using image detection algorithms and by only using the Zumy's cameras.</li>
-          <li>Improve exploration algorithm. The current exploration is random and this is not desirable for bigger areas of 
+          <li>Eliminate the use of AR tags by simply using image detection algorithms and by only using the cameras on the Zumies.</li>
+          <li>Improve the exploration algorithm. The current exploration is random and this is not desirable for bigger areas of 
           exploration.</li>
-          <li>Add obstacles and implement obstacle avoidance. However, the obstacles will either have to have AR tags or the 
-          implement the image detection algorithm.</li>
-          <li>Go up light gradient. Instead of stopping once the light sensor detects past a certain threshold, lower the 
-          threshold and have Zumy detect lower thresholds and move up a gradient to find brighter areas. This allows it to better
+          <li>Add obstacles and implement obstacle avoidance. However, the obstacles must require AR tags. Implementing an image detection algorithm would solve all of these problems.</li>
+          <li>Go up the light gradient. Instead of stopping once the light sensor detects a certain threshold, lower the 
+          threshold and have the Zumies detect lower thresholds and move up a gradient to find brighter areas. This allows us to better
           find distant light sources. </li>
           <li>Land on Mars. </li>
         </ul>
