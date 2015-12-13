@@ -69,16 +69,15 @@
 
         <h5 class="under">Simple Terminology</h5>
           <p><strong>Zumy</strong> - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
-          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
-          communicate with the Kalman filter. 
+          for a camera, a wifi adapater to communicate with a network, pins for analog input, and an internal gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
           <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
-          <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
+          <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of a photoresistor's dynamic resistance to output a variable voltage</p>
 
           <p style="text-align:center;"><img src="img/termin.png" alt="Flow Chart" style="width:100%; 
           height:auto;"></p>
 
         <h5 class="under">Initial Design</h5>
-        <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera in an effort to simulate realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. 
+        <p>in an effort to simulate realistic exploration, our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. 
         From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and 
         thus cannot determine its position accurately from its camera readings, it would instead use the Kalman Filter, integrating
         readings from its accelerometer to accurately calculate its position.</p>
@@ -107,7 +106,7 @@
           <tr>
             <td><strong>Positioning System</strong></td>
             <td>4 Landmark AR tags<br>Mounted Camera<br>Global Camera</td>
-            <td>AR tags<br>Mounted Cameras<br>Kalman Filter</td>
+            <td>Landmark AR tags<br>Mounted Cameras<br>Kalman Filter</td>
           </tr>
           <tr>
             <td><strong>Light Sensing</strong></td>
@@ -124,7 +123,7 @@
         <p>The photograph below shows the final setup which was used for the project. It should be noted that the global camera cannot
         be seen but is overlooking the exploration region. Of further note is that the region is split equally in two parts between
         the Zumies. The top part is explored by the un-sensorised whilst the lower part is explored by the Zumy with sensors. A patch
-        of bright light was added so that the Zumies stop exploring once it has been found.</p>
+        of bright light was added so that the Zumies stop exploring once one of them has been found it.</p>
 
         <p style="text-align:center;"><img src="img/setup.png" alt="Setup" style="width:100%; height:auto;"></p>
 
@@ -140,25 +139,23 @@
         <p style="text-align:center;"><img src="img/setup3.png" alt="Setupe3" style="width:100%; height:auto;"></p>
 
                <h5 class="under">Design Criteria</h5>
-        <p>The final design choices meets several criteria relatively well and others not. For example, our system is not entirely
-        robust. The code is heavily dependant on the existing ROS software but if any node that isn't the Zumy crashes, the
-        entire system crashes. There is one point of robustness which is if the Zumy doesn't see an AR tag, the global camera catches
-        it.
+        <p>The final design choices meet several design criteria relatively well and others not so well. For example, our system is not entirely
+        robust. The code is heavily dependant on the existing ROS software but if any node, other than the Zumy node, crashes, the
+        entire system will hang. There is one point of robustness and this is if the Zumy does not see an AR tag, the global camera will still capture its position.
         
         <br>
         
-        However, the design is efficient. We had the code assign sections of exploration so they don't overlap and explore areas 
-        twice. The intent was to find light to charge the Zumies so having them conserve energy looking for places to charge is 
-        something our design takes into consideration. Also, our design is easily expandable in the sense that the code is
-        modulized. This means if for example we want to change the number of Zumies we are working or change the exploration
-        algorithm, we can do it. We can change the controller node to send different information to our explorer node for better
+        Despite this setback, our design is clean and efficient. We had the explorer node (covered in more detail below) assign sections of exploration so the Zumies do not overlap in their exploration regions and search the same areas 
+        twice. The intent was to find light to charge the Zumies, so having them conserve energy while looking for places to charge is 
+        an issue our design addresses. Further, our design is easily expandable because the code is
+        modulized. Thus, changing the number of exploring Zumies or changing the exploration
+        algorithm is easy to locate and accomplish. We can further adapt the controller node (also discussed in more detail below) to send different information to our explorer node for better
         feedback.
         
         <br>
         
-        Some of the design criteria that we don't meet well are due to the fact that we build on existing implementations. For example,
-        recovering from crashes in ROS is not something we have knowledge. We think we did well to meet design criteria that we did
-        have control of though.
+        Some of the design criteria that we fail to meet in a real-world robotics setting is due to the fact that our system is built largely from existing implementation, namely ROS. For example, problems such as 
+        recovering from crashes in ROS is not something we have knowledge of.  <br> Ultimately, we believe we did well to meet design criteria that we did have control of.
         
          </p>
       </div>
