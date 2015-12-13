@@ -348,9 +348,8 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
         
         <h5 class="under">Initial Designs, Problems, and Fixes </h5>
 
-        <p>At the start of our project, we had an overall goal, a general idea of how to reach it, and the tools to implement it. 
-        However, along the way, we ran into problems. To solve them, we had to make changes to our original design to get around to
-        our final goal. </p>
+        <p>At the start of our project, we had an overall goal, a general approach of how to reach it, and the tools to implement it. 
+        However, along the way, we ran into multiple problems. To solve them, we had to make changes to our original design to get around to our final goal. The changes are outlined in greater detail in the table below.</p>
         <table class="u-full-width">
           <thead>
             <td><strong>Original Design and Problem</strong> </td>
@@ -358,26 +357,21 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
             <td><strong>More Permanent/Desirable Solution</strong></td>
           </thead>
           <tr>
-            <td>Use imu service to estimate position. However, Kalman Filter with accelerometer was not very accurate making 
-            <span>position tracking</span> difficult</td>
-            <td>Used a global camera to look at Zumies to simulate a system that can keep track of Zumy if it doesn't find an AR 
-            tage and origion to find orientation</td>
-            <td>Possible solutions include:<br>- Improve filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate 
+            <td>Use the IMU service to estimate position. However, the Kalman Filter, based off accelerometer readings, was not very accurate making <span>position tracking</span> difficult.</td>
+            <td>Used a global camera. We required an AR tag on each Zumy as well as an origin tag.</td>
+            <td>- Improved filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate 
             distance</td>
           </tr>
-          </thead>
           <tr>
-            <td>Use Zumy's camera transform to landmark AR tag to calcuate orientation relative to global origin but difficulty 
+            <td>Use a Zumy's camera transform to landmark AR tag to calcuate orientation relative to global origin but difficulty 
             getting the right transform</td>
             <td>Used one more AR tag at origin and the global camera and the ar_track_alvar library to get the transform</td>
             <td>Use better filter and more accurate gyroscope to keep track and update orientation</td>
           </tr>
           <tr>
-           <td> Use 3 Zumy's but lack of available dedicated Zumy's made it difficult to secure 3 to setup sensors on</td>
-            <td>Work with 2 zumies and have one with light sensors be the one to "find" the light and have the one without 
-            any sensors move to it</td>
-            <td>Current code can easily be expanded to account for more zumies and setting up light sensors on Zumy is also
-            relatively easy</td>
+           <td> Use 3 Zumies. Lack of available dedicated Zumies made it difficult to secure 3 to setup sensors on.</td>
+            <td>Use 2 Zumies, one with light sensors be the one to "find" the light and one without.</td>
+            <td>Current code can easily be expanded to account for more Zumies and setting up more light sensors on another Zumy is not very difficult.</td>
           </tr>
         </table>
 
