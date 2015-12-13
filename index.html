@@ -150,6 +150,9 @@
           <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
           <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
 
+          <p style="text-align:center;"><img src="img/termin.png" alt="Flow Chart" style="width:100%; 
+          height:auto;"></p>
+
           <h5 class="under">Positioning System</h5>
 
           <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking 
@@ -206,6 +209,8 @@
           will then proceed to move forward, and continuously makes small adjustments in its orientation in order to advance in
           the correct direction, until it reaches its target location. The software was written such the Zumy always rotates in
           the direction closest to the desired orientation.</p>
+          <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+
 
           <p>The video below shows a test in which the Zumy is told to move from one location to another.</p>
           <div class="vid">
@@ -224,8 +229,7 @@
           src="https://www.youtube.com/embed/DWWPY7QQbqk" >
           </iframe>
           </div>
-          
-          <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+        
           
         <h5 class="under">System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h5>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
@@ -287,7 +291,8 @@
         <br>This launch file is used to launch the zumy. It sits in the odroid_machine package.
         </li>
 
-        <p style="padding-top:1em;"><strong>System Architecture Visual</strong></p>
+        <p style="padding-top:1em;"><strong>System Architecture Visual</strong><br>
+        A graphical overview of the system.</p>
         <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; 
         height:auto;"></p>
         
@@ -318,7 +323,7 @@ up to easily allow other Zumies to join in.</p>
         <h2 class="header">5. Conclusion</h2>
         
         <h5 class="under">Summary</h5>
-        <p>The goal of this project was to have Zumy's explore an area to find light and signal other Zumy's to go to it. We basically
+        <p>The goal of this project was to have Zumiess explore an area to find light and signal other Zumies to go to it. We basically
         have a system that does this. There were a few problems so we deviated from our original plan and had workarounds but 
         ultimately, our system is modulized in a way that makes it relatively simple to switch out the alterations. There is 
         definitely room for improvement and there are others ways to use it beyond its original functionality such as using it to
@@ -398,10 +403,10 @@ up to easily allow other Zumies to join in.</p>
         <em>zumy_code.zip</em> contains the Zumy code to put on to the Zumy. Contained are zumy.py and zumy_ros_bridge.py</p> 
         <h5 class="under">How to Run Guide</h5>
         <ol>
-        <li>Download from the section above the code.</li>
+        <li>Download from the section above.</li>
         <li>Unzip the zip files. </li>
-        <li>Go to ros_workspaces/project/src/tfservice/launch and change the directory to the lifecam.yml in your machine.</li>
-        <li></li>
+        <li>Go to <em>ros_workspaces/project/src/tfservice/launch </em>and change the directory in the <em>lifecam.yml</em> in your machine.</li>
+        <li>cd into the <em>ros_workspaces/project</em> and remove the <em>build</em> and <em>devel</em> folders. Run 'catkin_make'.</li>
         <li></li>
         <li></li>
         </ol>
