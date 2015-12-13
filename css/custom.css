@@ -38,6 +38,6 @@ div {
 
 .left {
     position:absolute;
-    left:0; top:92px; bottom: 0;
+    left:0; top:92px; bottom: 0px;
     width: 178px;
 }
