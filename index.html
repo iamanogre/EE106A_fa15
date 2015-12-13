@@ -261,41 +261,41 @@
 
         </ul>
         <p><strong>Nodes</strong><br>Although there are many nodes present in our system, such as the camera nodes and service
-        nodes, one of these nodes requires greater explanation and is outlined in greater detail below.</p>
+        nodes, one of these nodes requires greater explanation and is outlined below.</p>
         <ul>
 
         <li><strong>Controller</strong>
-        <br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services, which are explained below. 
+        <br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services. Services are explained below. 
         Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
         </ul>
         <p><strong>Services</strong>
         <br>The following are the services that enable our system information exchange and essentially run the system. 
-        Services are unique because unlike topics, information is not continuously published and is only exchanged when prompted and correctly follows the specified service messages. 
-        The services below indicate the side that initiates first and which effectively sends the request.</p>
+        Services are unique because unlike topics, information is not continuously published. The exchange occurs when a service request is prompted and a service response follows. An analogy is that services are similar to a handshake between nodes.
+        <br><br>The services below indicate the side that initiates first and which effectively sends the request.</p>
         <ul>
         <li><strong>tf_service</strong> - Controller Initiated
         <br>Service Request: string zumy
         <br>Service Response: bool updated, float32 theta, float32[] position
-        <br>The purpose of this service is for the Controller to find its current position and rotation in the area by asking this service. The service request basically states for which Zumy's position is required and it is a string (string zumy). The response is an updated flag, the theta or rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float.
-        <br>The tf_service is able to calculate the Zumy's position specifically from listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service follows the procedure outlined in the "Mounted Camera" sectio above, turning the transform into the correct theta and position, stores it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. 
-        The update flag is used to  indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.
+        <br>The purpose of this service is to tell the Controller its Zumy's current position and rotation in the area. The service request states for which Zumy this request is for and is a string (string zumy). The response is an updated flag, the rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float array.
+        <br>The tf_service is able to calculate the Zumy's position by listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service follows the procedure outlined in the "Mounted Camera" section above, turning the transform into the correct theta and position, stores it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. 
+        The update flag is used to indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.
         </li>
         <li><strong>global_service</strong> - Controller Initiated
         <br>Service Request: string zumy
         <br>Service Response: bool updated, float32 theta, float32[] position
-        <br>The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), through the method outlined in the Global Camera section above, it computes the Zumy's position and theta. It then, similarly to the tf_service, stores these values in a dictionary, where the Zumy string name is the key and returns to the Controller the Zumy's position and rotation.
+        <br>The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), and through the method outlined in the "Global Camera" section above, it computes the Zumy's position and theta. Similar to the tf_service, it stores these values in a dictionary, where the Zumy string name is the key, and returns to the Controller the Zumy's position and rotation through the same service request and response.
         </li>
         <li><strong>explore_service</strong> - Controller Initiated
         <br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished
         <br>Service Response: float32[] position, bool hard_stop
-        <br>The explore_service is the brain of the entire operation. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. 
-        In it's response, it tells the Zumy whether it should keep exploring (by sending it to a new position if the Controller says it is finished in reaching its exploration) or by keeping still at it's position. When a Zumy's photo data reaches over a threshold, it tells that Zumy to stop and tells the other Zumy the position of that Zumy. 
-        Furthermore, it can issue a hard_stop to Zumies. Because it konws the positions of all of them, it can tell them to hard_stop when they would collide and lets one of them go. It is truly the brains of the operation.</li>
+        <br>The explore_service is the brain of the system. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. <br>
+        In its response, it tells the Zumy whether it should keep exploring by sending it to a new position or by keeping it still at its current position. When a Zumy's photo data reaches over the necessary light threshold, the explore_service tells that Zumy to stop and messages the other Zumy the position of that Zumy. 
+        Furthermore, this service can issue a hard_stop to Zumies, which tells a Zumy to stop moving. Because it knows the positions of all of the Zumies, it can tell them to hard_stop when they would collide and lets one of them go. <br>It is truly the brain of the operation.</li>
 
         </ul>
 
         <p><strong>Launch Files</strong>
-        <br>The following are the launch files that were launched to begin running our system.</p>
+        <br>The following are the launch files that are launched to begin running our system.</p>
         <ul>
         <li><strong>run_all.launch</strong>
         <br>This launch file is used to launch the global camera. It sits in the tfservice package.
@@ -305,7 +305,7 @@
         </li>
 
         <p style="padding-top:1em;"><strong>System Architecture Visual</strong><br>
-        A graphical overview of the system.</p>
+        The following is a visual of the topics, nodes, and services in our system architecture. <br><span style="color:red;">Red</span> arrows denote service exchanges. <br> <span style="color:black;">Black</span> arrows denote topics.</p>
         <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; 
         height:auto;"></p>
         
