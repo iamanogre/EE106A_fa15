@@ -56,21 +56,9 @@
      	<div class="twelve columns">
         <h2 class="header">2) Design</h2>
         <h3>Initial Design</h3>
-        <p>Our initial design was to mount cameras and four photocells onto each Zumy. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and thus cannot determine it's position accurately from it's camera readings, it would instead use the Kalman Filter, integrating readings from it's accelerometer to accurately calculate its position.</p>
-        <p>In terms of exploring, the three Zumies would explore an equal region in the field and when one of them found a sufficient source of light to charge it's solar cells, it would signal to the others to stop searching. The other Zumies would stop searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
-        <ol>
-          <li>Position system</li>
-          <ul>
-            <li>Mounted camera's for realistic exploration</li>
-            <li>AR tags which act as objects of known positions</li>
-            <li>Kalman Filter (IMU's) for estimating position</li>
-          </ul>
-          <li>Exploration and Light Sensing</li>
-          <ul>
-            <li>Split exploration region for Zumies to cover area efficiently</li>
-            <li>Find area of highest light intensity to charge their cells</li>
-          </ul>
-        </ol>
+        <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera to simulate realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and thus cannot determine its position accurately from it's camera readings, it would instead use the Kalman Filter, integrating readings from it's accelerometer to accurately calculate its position.</p>
+        <p>In terms of exploring, the three Zumies would explore an equal region in the field and when one of them found a sufficient source of light to charge its solar cells, it would signal to the others to stop searching. The other Zumies would stop searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
+
         <h3>Final Design</h3>
         <p>*position tracking
   Must meet using landmark AR tags + kalman filter.
