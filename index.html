@@ -131,10 +131,28 @@
 
         <p style="text-align:center;"><img src="img/setup3.png" alt="Setupe3" style="width:100%; height:auto;"></p>
 
-        <h5 class="under">ow do these design choices impact how well the project meets design criteria which would be encountered in a real 
-        engineering application, such as robustness, durability, and efficiency?</h5>
-        <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks
-        down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
+               <h5 class="under">Design Criteria</h5>
+        <p>The final design choices meets several criteria relatively well and others not. For example, our system is not entirely
+        robust. The code is heavily dependant on the existing ROS software but if any node that isn't the Zumy crashes, the
+        entire system crashes. There is one point of robustness which is if the Zumy doesn't see an AR tag, the global camera catches
+        it.
+        
+        <br>
+        
+        However, the design is efficient. We had the code assign sections of exploration so they don't overlap and explore areas 
+        twice. The intent was to find light to charge the Zumies so having them conserve energy looking for places to charge is 
+        something our design takes into consideration. Also, our design is easily expandable in the sense that the code is
+        modulized. This means if for example we want to change the number of Zumies we are working or change the exploration
+        algorithm, we can do it. We can change the controller node to send different information to our explorer node for better
+        feedback.
+        
+        <br>
+        
+        Some of the design criteria that we don't meet well are due to the fact that we build on existing implementations. For example,
+        recovering from crashes in ROS is not something we have knowledge. We think we did well to meet design criteria that we did
+        have control of though.
+        
+         </p>
       </div>
     </div>
 
