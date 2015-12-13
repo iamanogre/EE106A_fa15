@@ -40,7 +40,7 @@
     <p class="excess" id="intro"></p> 
     <div class="row">
       <div class="twelve columns">
-        <h2 class="header">1) Introduction</h2>
+        <h2 class="header">1. Introduction</h2>
         <p>The goal of this project is to successfully launch an autonomous network of three Zumies (small mobile robots, as seen
         above) to explore a surrounding area in search of light. The purpose of searching for light is to recharge the Zumies' solar 
         cells and effectively keep each other running autonomously whilst exploring an unknown enviroment. Interesting features of
@@ -64,8 +64,8 @@
     <p class="excess" id="design"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">2) Design</h2>
-        <h3>Initial Design</h3>
+        <h2 class="header">2. Design</h2>
+        <h5 class="under">Initial Design</h5>
         <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera to simulate 
         realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. 
         From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and 
@@ -75,7 +75,7 @@
         source of light to charge its solar cells, it would signal to the others to stop searching. The other Zumies would stop
         searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
 
-        <h3>Final Design</h3>
+        <h5 class="under">Final Design</h5>
         <p>The project was an overall successful and the majority of the initial objectives were met – the most notable difference 
         with the initial design is that the Kalman Filter was not implemented. This is because the readings from the accelerometer 
         of the IMU (Inertial Measuring Unit) were found to be unreliable. It was decided that a global camera, overlooking the entire
@@ -90,21 +90,21 @@
         <table class="u-full-width">
           <thead>
             <td></td>
-            <td>Achieved</td>
-            <td>Objective</td>
+            <td><strong>Achieved</strong></td>
+            <td><strong>Objective</strong></td>
           </thead>
           <tr>
-            <td>Positioning System</td>
-            <td>4 Landmark AR tags<br>Mounted Camera<br><strong>Global Camera</strong></td>
-            <td>AR tags<br>Mounted Cameras<br><strong>Kalman Filter</strong></td>
+            <td><strong>Positioning System</strong></td>
+            <td>4 Landmark AR tags<br>Mounted Camera<br>Global Camera</td>
+            <td>AR tags<br>Mounted Cameras<br>Kalman Filter</td>
           </tr>
           <tr>
-            <td>Light Sensing</td>
+            <td><strong>Light Sensing</strong></td>
             <td>1 Zumy with 4 light sensors</td>
             <td>Each Zumy has light sensors</td>
           </tr>
           <tr>
-            <td>Exploration</td>
+            <td><strong>Exploration</strong></td>
             <td>Split region between 2 Zumies</td>
             <td>Split region between Zumies</td>
           </tr>
@@ -129,14 +129,8 @@
 
         <p style="text-align:center;"><img src="img/setup3.png" alt="Setupe3" style="width:100%; height:auto;"></p>
 
-        <h3>Design Choices and Tradeoffs</h3>
-        <p>Traded kalman filter for global camera. Did not add noise to the global camera reading, but should have to simulate reality. 
-        We decided to keep all of our services separate simply to be able to easily debug. Ideally, we would have combined these 3 
-        service into 1. This one service would basically generate its own positions and thetas from parsing through all the tf’s, 
-        maintain a position and theta of each zumy, read in photo data readings from the zumy, do all the computation of the three 
-        services, and would effectively publish only a twist to each zumy.</p>
-        <h3>ow do these design choices impact how well the project meets design criteria which would be encountered in a real 
-        engineering application, such as robustness, durability, and efficiency?</h3>
+        <h5 class="under">ow do these design choices impact how well the project meets design criteria which would be encountered in a real 
+        engineering application, such as robustness, durability, and efficiency?</h5>
         <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks
         down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
       </div>
@@ -145,16 +139,16 @@
     <p class="excess" id="implementation"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">3) Implementation</h2>
+        <h2 class="header">3. Implementation</h2>
 
-          <h3>Simple Terminology</h3>
+          <h5 class="under">Simple Terminology</h5>
           <p><strong>Zumy</strong> - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
           for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
           communicate with the Kalman filter. 
           <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
           <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
 
-          <h3>Positioning System</h3>
+          <h5 class="under">Positioning System</h5>
 
           <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking 
           the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags 
@@ -165,7 +159,7 @@
 
           <p>The following section discusses how each of these methods are used to estimate the positions of the Zumy.</p>
 
-          <h3>Mounted Camera</h3>
+          <h5 class="under">Mounted Camera</h5>
           <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR 
           tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to
           estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the
@@ -186,7 +180,7 @@
 
           <p style="text-align:center;"><img src="img/position_track1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
-          <h3>Global Camera</h3>
+          <h5 class="under">Global Camera</h5>
           <p>The position and orientation of the Zumy relative to the origin can easily be calculated using the AR tag located on
           the zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the
           following below.</p>
@@ -194,7 +188,7 @@
           <p style="text-align:center;"><img src="img/equations2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
           <p>The orientation of the Zumy can be extracted from the transform from the origin to the Zumy. </p>
 
-          <h3>Motion and Exploration</h3>
+          <h5 class="under">Motion and Exploration</h5>
 
           <p>Another important section in this project was the exploration phase. The main goals consisted of telling the Zumy to 
           move to certain locations within the exploration region and measuring the local light intensity as it navigates. </p>
@@ -227,7 +221,7 @@
           
           <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
           
-        <h3>System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h3>
+        <h5 class="under">System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h5>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
         <ul>
@@ -297,14 +291,14 @@
     <p class="excess" id="result"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">4) Result</h2>
-        <h3>How well did your project work? What tasks did it perform?</h3>
+        <h2 class="header">4. Result</h2>
+        <h5 class="under">How well did your project work? What tasks did it perform?</h5>
         <p>The project was a success. We managed to get 1 Zumy to explore an area marked 
 out with Landmark AR tags and with an overlooking global AR tag and measure the level of light as it does so. When the zumy records a
 level of light above a certain threshold, it stops and tells the other zumy to come join it. We only had 1 sensorized Zumy and 1 
 Unsensorized zumy because it meant we had to modifiy the hardware quite a bit and would make other Zumies unusable. The code is set 
 up to easily allow other Zumies to join in.</p>
-        <h3>Illustrate with a video and pictures</h3>
+        <h5 class="under">Illustrate with a video and pictures</h5>
         <p>See pictures and videos.</p>
       </div>
    	</div>
@@ -312,25 +306,25 @@ up to easily allow other Zumies to join in.</p>
     <p class="excess" id="conclusion"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">5) Conclusion</h2>
+        <h2 class="header">5. Conclusion</h2>
         
-        <h3>Summary</h3>
+        <h5 class="under">Summary</h5>
         <p>The goal of this project was to have Zumy's explore an area to find light and signal other Zumy's to go to it. We basically
         have a system that does this. There were a few problems so we deviated from our original plan and had workarounds but 
         ultimately, our system is modulized in a way that makes it relatively simple to switch out the alterations. There is 
         definitely room for improvement and there are others ways to use it beyond its original functionality such as using it to
         carry plants to well lit areas.</p>
         
-        <h3>Initial Designs, Problems, and Fixes </h3>
+        <h5 class="under">Initial Designs, Problems, and Fixes </h5>
 
         <p>At the start of our project, we had an overall goal, a general idea of how to reach it, and the tools to implement it. 
         However, along the way, we ran into problems. To solve them, we had to make changes to our original design to get around to
         our final goal. </p>
         <table class="u-full-width">
           <thead>
-            <td>Original Design and Problem </td>
-            <td>Temporary Fix</td>
-            <td>More Permanent/Desirable Solution</td>
+            <td><strong>Original Design and Problem</strong> </td>
+            <td><strong>Temporary Fix</strong></td>
+            <td><strong>More Permanent/Desirable Solution</strong></td>
           </thead>
           <tr>
             <td>Use imu service to estimate position. However, Kalman Filter with accelerometer was not very accurate making 
@@ -377,12 +371,12 @@ up to easily allow other Zumies to join in.</p>
     <p class="excess" id="team"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">6) Team</h2>
-          <h3>Gary Choi</h3>
+        <h2 class="header">6. Team</h2>
+          <h5>Gary Choi</h5>
           <p>Stuff</p>
-          <h3>Gary Hoang</h3>
+          <h5>Gary Hoang</h5>
           <p>Stuff</p>
-          <h3>Xavier Lavenir</h3>
+          <h5>Xavier Lavenir</h5>
           <p>Stuff</p>         
       </div>
  	</div>
@@ -390,13 +384,13 @@ up to easily allow other Zumies to join in.</p>
     <p class="excess" id="add_materials"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2 class="header">7) Additional Materials</h2>
-        <h3>Code</h3>
+        <h2 class="header">7. Additional Materials</h2>
+        <h5 class="under">Code</h5>
         <p>Freely available for anyone to use. Simply download project_code.zip and zumy_code.zip.<br>
         <a href="https://github.com/iamanogre/EE106A_fa15" target="_blank">Link</a> to github.</p>
         <p><em>project_code.zip</em> contains the project files to launch the global camera, Zumies, and services.<br>
         <em>zumy_code.zip</em> contains the Zumy code to put on to the Zumy. Contained are zumy.py and zumy_ros_bridge.py</p> 
-        <h3>How to Run Guide</h3>
+        <h5 class="under">How to Run Guide</h5>
         <ol>
         <li>Download from the section above the code.</li>
         <li>Unzip the zip files. </li>
@@ -407,7 +401,7 @@ up to easily allow other Zumies to join in.</p>
         </ol>
         <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup
         bash stuff</p>
-        <h3>Photocells</h3>
+        <h5 class="under">Photocells</h5>
         <p><a href="https://www.adafruit.com/product/161" target="_blank">Link</a> to Adafruit.</p>
       </div>
    	</div>
