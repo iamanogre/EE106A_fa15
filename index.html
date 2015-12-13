@@ -32,7 +32,7 @@
       <div class="twelve columns">
         <h1>Zumy Light Exploration <span style="float:right">EE106A Fall 2015 Final Project</span></h1>
         <p style="padding-top:2em;"></p>
-        <p style="text-align:center;"><img src="img/Front_pic_v1.jpg" alt="Zumy" style="width:100%; height:auto;"></p>
+        <p style="text-align:center;"><img src="img/zumy.png" alt="Zumy" style="width:100%; height:auto;"></p>
        	<h3 style="text-align:center;margin-top:-2.1em;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color:white;opacity:0.9;"><em>"simulating the exploration of an unknown planet"</em></h3>
       </div>
     </div>
@@ -112,6 +112,50 @@ We decided to keep all of our services separate simply to be able to easily debu
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">3) Implementation</h2>
+
+          <h3>Positioning System</h3>
+          <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags are in the field of view of the mounted camera – as previously mentioned, this is done to simulate the Kalman filter.</p>
+          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below – therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
+          <p>The following section discusses how each of these methods are used to estimate the positions of the Zumy.</p>
+
+          <h3>Mounted Camera</h3>
+          <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the transform from the origin to itself and thus both the position and orientation of the Zumy, relative to the origin, can be inferred. </p>
+
+          <p>picture of RVIZ</p>
+
+          <p>The figure below shows the case where the Zumy is facing AR tag 3. The position can then be easily calculated using the formula below since the transform from the origin to the AR tag is known and the Zumy’s camera can measure the transform the Zumy to the AR tag.</p>
+
+          <p style="text-align:center;"><img src="img/equations1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+
+          <p>To calculate the orientation of the Zumy, a simple addition or subtraction from the angle measured by the mounted camera is required (the amount to add or subtract depends on which AR is in view) – this is so that theta is measured anti-clockwise from the positive y-axis of the origin.</p>
+
+          <p style="text-align:center;"><img src="img/position_track1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+
+          <h3>Global Camera</h3>
+          <p>The position and orientation of the Zumy relative to the origin can easily be calculated using the AR tag located on the zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the following below.</p>
+          
+          <p style="text-align:center;"><img src="img/equations2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+          <p>The orientation of the Zumy can be extracted from the transform from the origin to the Zumy. </p>
+
+          <h3>Motion and Exploration</h3>
+
+          <p>Another important section in this project was the exploration phase. The main goals consisted of telling the Zumy to move to certain locations within the exploration region and measuring the local light intensity as it navigates. </p>
+          <p>The first step was to tell the Zumy to move from one point within our region to another. The figure below shows the case where the Zumy starts off at point A with orientation theta and needs to move towards point B. The flow chart below illustrates the algorithm which controls how the Zumy moves from point A to point B. θd is the angle which the Zumy must face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using simple trigonometry. </p>
+
+          <p style="text-align:center;"><img src="img/flowChart.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+
+          <p>Essentially, the Zumy is told to rotate until it is facing the desired location to within a certain bound. The Zumy will then proceed to move forward, and continuously makes small adjustments in its orientation in order to advance in the correct direction, until it reaches its target location. The software was written such the Zumy always rotates in the direction closest to the desired orientation.</p>
+
+          <p>The video below shows a test in which the Zumy is told to move from one location to another.</p>
+
+          <p>INSERT VIDEO HERE</p>
+
+          <p>The next stage was to split the region to be explored between the two Zumies and have one move towards the other when a moving average of the light readings exceeded a certain threshold value. After calibrating the sensors, the readings from each photo sensor ranged from around 0.2 in the darkness up to 1.0 in high light intensity. A threshold value of 0.7 seemed to produce reasonable results. Since the region to be explored was rather small, each Zumy was assigned to half the total area and each would explore its area randomly as shown in the video below.</p>
+
+          <p>INSERT VIDEO HERE</p>
+          
+          <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+          
           <h3>Hardware Used. Illustrate with pictures and diagrams.</h3>
           <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
 <p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library, which returns transforms used in our tracking algorithm</p><p>
@@ -121,10 +165,8 @@ Voltage divider circuit - simple circuit taking advantage of photoresistor’s d
         <p>
 Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf topic.  
 </p>
-
-        <h3>Zumy</h3>
         
-        <p style="text-align:center;"><img src="img/flowChart.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
+
 
         <h3>System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h3>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services.</p>
