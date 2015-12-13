@@ -415,18 +415,16 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
         <li>Download from the section above.</li>
         <li>Unzip the zip files. </li>
         <li>Go to <em>ros_workspaces/project/src/tfservice/launch </em>and change the directory in the <em>lifecam.yml</em> in your machine.</li>
-        <li>cd into the <em>ros_workspaces/project</em> and remove the <em>build</em> and <em>devel</em> folders. Run 'catkin_make'.</li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>cd into the <em>ros_workspaces/project</em> and remove the <em>build</em> and <em>devel</em> folders. Run 'catkin_make'. Remember to source the setup.bash file in this directory.</li>
+        <li>I will denote 'zumyaa' as the first Zumy and 'zumybb' as the second Zumy. Also 'x' is the width of your area divided by 2, and 'y' is the height of your area divided by 2.</li>
+        <li>Launch the global camera by running 'roslaunch tfservice run_all.launch.' Launch the 2 Zumies by running 'roslaunch odroid_machine remote_zumy1.launch mname:=zumyaa' and 'roslaunch odroid_machine remote_zumy2.launch mname:=zumybb'. The remote_zumy1.launch is for the sensorized Zumy. The second is for the unsensorized Zumy.</li>
+        <li>Begin the tf_service by running in a new terminal, 'rosrun tfservice tf_srv.py zumyaa zumybb x y'.</li>
+        <li>Run the global_service by running in a new terminal, 'rosrun tfservice global_srv.py zumyaa AR_tag_on_zumyaa zumybb AR_tag_on_zumybb AR_tag_at_origin'.</li>
+        <li>Run the explore_service by running in a new terminal, 'rosrun tfservice explore_srv.py'.</li>
+        <li>Start the controller on the zumyaa by running 'rosrun controller.py zumyaa explore1'.</li>
+        <li>Start the controller on the zumybb by running 'rosrun controller.py zumybb explore2'.</li>
+        <li>Now watch the Zumies search for light!</li>
         </ol>
-        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup
-        bash stuff</p>
         <h5 class="under">Photocells</h5>
         <p><a href="https://www.adafruit.com/product/161" target="_blank">Link</a> to Adafruit.</p>
       </div>
