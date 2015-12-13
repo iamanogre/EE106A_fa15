@@ -248,16 +248,19 @@
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
         <ul>
-        <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]<br>The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7, Additional Materials.<br>Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout), specifing the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
+        <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]
+        <br> - The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7, Additional Materials.
+        <br> - Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout), specifing the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
         <li><strong>tf</strong><br>Message Published: TFMessage [found in tf2_msgs]
-        <br>There are a variety of nodes that publish onto this topic.
-        <br>The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b's camera readings.
-        <br>The other node that publishes to the tf topic is the global camera. The Transform encapsulated in it's TFMessage is the Transform between the origin tag to the Zumy's tag in the field.
-        <br>TFMessage is also another complex message type. The fields to pay close attention to are its TFMessage.transforms[0].child_frame_id, which contains the publishing node (usb_cam or usb_cam_zumyxx) and TFMessage.transforms[0].transform, which contains the Transform.
+        <br> - There are a variety of nodes that publish onto this topic.
+        <br> - The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b's camera readings.
+        <br> - The other node that publishes to the tf topic is the global camera. The Transform encapsulated in it's TFMessage is the Transform between the origin tag to the Zumy's tag in the field.
+        <br> - TFMessage is also another complex message type. The fields to pay close attention to are its TFMessage.transforms[0].child_frame_id, which contains the publishing node (usb_cam or usb_cam_zumyxx) and TFMessage.transforms[0].transform, which contains the Transform.
         </li>
         <li><strong>zumyxx_cmd_vel</strong>
         <br>Message Published: Twist [found in geometry_msgs]
-        <br>Publishing a Twist to zumyxx_cmd_vel makes the Zumy move. Of key note are that the Zumy cannot move sideways, and thus, only values written to Twist.linear.x (forward speed) and Twist.angular.z (rotation speed) are understood by the Zumy.
+        <br> - Publishing a Twist to zumyxx_cmd_vel makes the Zumy move. 
+        <br> - Of key note are that the Zumy cannot move sideways, and thus, only values written to Twist.linear.x (forward speed) and Twist.angular.z (rotation speed) are understood by the Zumy.
 
         </ul>
         <p><strong>Nodes</strong><br>Although there are many nodes present in our system, such as the camera nodes and service
@@ -265,8 +268,8 @@
         <ul>
 
         <li><strong>Controller</strong>
-        <br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services. Services are explained below. 
-        Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
+        <br> - Each Zumy in the system has its own controller node. This controller is responsible for interfacing with all other nodes and services. Services are explained below. 
+        <br> - Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
         </ul>
         <p><strong>Services</strong>
         <br>The following are the services that enable our system information exchange and essentially run the system. 
@@ -276,21 +279,22 @@
         <li><strong>tf_service</strong> - Controller Initiated
         <br>Service Request: string zumy
         <br>Service Response: bool updated, float32 theta, float32[] position
-        <br>The purpose of this service is to tell the Controller its Zumy's current position and rotation in the area. The service request states for which Zumy this request is for and is a string (string zumy). The response is an updated flag, the rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float array.
-        <br>The tf_service is able to calculate the Zumy's position by listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service follows the procedure outlined in the "Mounted Camera" section above, turning the transform into the correct theta and position, stores it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. 
-        The update flag is used to indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.
+        <br> - The purpose of this service is to tell the Controller its Zumy's current position and rotation in the area. The service request states for which Zumy this request is for and is a string (string zumy). The response is an updated flag, the rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float array.
+        <br> - The tf_service is able to calculate the Zumy's position by listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service follows the procedure outlined in the "Mounted Camera" section above, turning the transform into the correct theta and position, stores it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. 
+        <br> - The update flag is used to indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.
         </li>
         <li><strong>global_service</strong> - Controller Initiated
         <br>Service Request: string zumy
         <br>Service Response: bool updated, float32 theta, float32[] position
-        <br>The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), and through the method outlined in the "Global Camera" section above, it computes the Zumy's position and theta. Similar to the tf_service, it stores these values in a dictionary, where the Zumy string name is the key, and returns to the Controller the Zumy's position and rotation through the same service request and response.
+        <br> - The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), and through the method outlined in the "Global Camera" section above, it computes the Zumy's position and theta. 
+        <br> - Similar to the tf_service, it stores these values in a dictionary, where the Zumy string name is the key, and returns to the Controller the Zumy's position and rotation through the same service request and response.
         </li>
         <li><strong>explore_service</strong> - Controller Initiated
         <br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished
         <br>Service Response: float32[] position, bool hard_stop
-        <br>The explore_service is the brain of the system. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. <br>
+        <br> - The explore_service is the brain of the system. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. <br> - 
         In its response, it tells the Zumy whether it should keep exploring by sending it to a new position or by keeping it still at its current position. When a Zumy's photo data reaches over the necessary light threshold, the explore_service tells that Zumy to stop and messages the other Zumy the position of that Zumy. 
-        Furthermore, this service can issue a hard_stop to Zumies, which tells a Zumy to stop moving. Because it knows the positions of all of the Zumies, it can tell them to hard_stop when they would collide and lets one of them go. <br>It is truly the brain of the operation.</li>
+        <br> - Furthermore, this service can issue a hard_stop to Zumies, which tells a Zumy to stop moving. Because it knows the positions of all of the Zumies, it can tell them to hard_stop when they would collide and lets one of them go. <br>It is truly the brain of the operation.</li>
 
         </ul>
 
@@ -305,7 +309,8 @@
         </li>
 
         <p style="padding-top:1em;"><strong>System Architecture Visual</strong><br>
-        The following is a visual of the topics, nodes, and services in our system architecture. <br><span style="color:red;">Red</span> arrows denote service exchanges. <br> <span style="color:black;">Black</span> arrows denote topics.</p>
+        The following is a visual of the topics, nodes, and services in our system architecture. </p>
+        <p><strong>Legend</strong><br><span style="color:black;">Black</span> arrows denote topics.<br>Nodes are circled.<br><span style="color:red;">Red</span> arrows denote service exchanges.</p>
         <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; 
         height:auto;"></p>
         
