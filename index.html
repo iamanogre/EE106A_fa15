@@ -420,7 +420,7 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
         <li>Launch the global camera by running 'roslaunch tfservice run_all.launch.' Launch the 2 Zumies by running 'roslaunch odroid_machine remote_zumy1.launch mname:=zumyaa' and 'roslaunch odroid_machine remote_zumy2.launch mname:=zumybb'. The remote_zumy1.launch is for the sensorized Zumy. The second is for the unsensorized Zumy.</li>
         <li>Begin the tf_service by running in a new terminal, 'rosrun tfservice tf_srv.py zumyaa zumybb x y'.</li>
         <li>Run the global_service by running in a new terminal, 'rosrun tfservice global_srv.py zumyaa AR_tag_on_zumyaa zumybb AR_tag_on_zumybb AR_tag_at_origin'.</li>
-        <li>Run the explore_service by running in a new terminal, 'rosrun tfservice explore_srv.py'.</li>
+        <li>Run the explore_service by running in a new terminal, 'rosrun tfservice explore_srv.py front_threshold_value back_threshold_value x y'.</li>
         <li>Start the controller on the zumyaa by running 'rosrun controller.py zumyaa explore1'.</li>
         <li>Start the controller on the zumybb by running 'rosrun controller.py zumybb explore2'.</li>
         <li>Now watch the Zumies search for light!</li>
