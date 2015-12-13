@@ -119,9 +119,9 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         </ul>
         <p><strong>Services</strong><br>The following are the services that enable our system information exchange and essentially run the system. Services are unique because unlike topics, information is not continuously published and is only exchanged when prompted and correctly follows the specified service messages. The services below indicate the side that initiates first and which effectively sends the request.</p>
         <ul>
-        <li><strong>tf_service</strong> - Controller Initiated</li>
-        <li><strong>global_service</strong> - Controller Initiated</li>
-        <li><strong>explore_service</strong> - Controller Initiated</li>
+        <li><strong>tf_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>explanation</li>
+        <li><strong>global_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>explanation</strong></li>
+        <li><strong>explore_service</strong> - Controller Initiated<br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished<br>Service Response: float32[] position, bool hard_stop<br>explanation</li>
         </ul>
         <p>Pictures of services and stuff</p>
 
