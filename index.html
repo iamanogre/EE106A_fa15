@@ -214,18 +214,24 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
         <h3>Initial Designs, Problems, and Fixes </h3>
 
         <p>At the start of our project, we had an overall goal, a general idea of how to reach it, and the tools to implement it. 
-        However, along the way, we ran into problem. The Kalman filter which we were planning to use in case the Zumy's camera loses 
-        track of any AR tag</p>
+        However, along the way, we ran into problems. To solve them, we had to make changes to our original design to get around to
+        our final goal. </p>
         <table class="u-full-width">
           <thead>
             <td>Deviations</td>
             <td>Temporary Fix</td>
-            <td>More Permanent Solution</td>
+            <td>More Permanent/Desirable Solution</td>
           </thead>
           <tr>
             <td>Kalman Filter with accelerometer was not very accurate making <span>position tracking</span> difficult</td>
             <td>Used a global camera to look at Zumies to simulate a system that can keep track of Zumy if it doesn't find an AR tage and origion to find orientation</td>
             <td>Possible solutions include:<br>- Improve filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate distance</td>
+          </tr>
+          </thead>
+          <tr>
+            <td>Problems getting transform between landmark AR tag and Zumy to calculate orientation relative to origin </td>
+            <td>Used one more AR tag at origin and the global camera and the ar_track_alvar library to get the transform</td>
+            <td>Use better filter and more accurate gyroscope to keep track and update orientation</td>
           </tr>
           <tr>
            <td>Using only 2 Zumies, only 1 has light sensors</td>
