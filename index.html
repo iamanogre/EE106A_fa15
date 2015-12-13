@@ -121,7 +121,7 @@ We decided to keep all of our services separate simply to be able to easily debu
           <h3>Mounted Camera</h3>
           <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the transform from the origin to itself and thus both the position and orientation of the Zumy, relative to the origin, can be inferred. </p>
 
-          <p>picture of RVIZ</p>
+          <p style="text-align:center;"><img src="img/rviz.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
           <p>The figure below shows the case where the Zumy is facing AR tag 3. The position can then be easily calculated using the formula below since the transform from the origin to the AR tag is known and the Zumy’s camera can measure the transform the Zumy to the AR tag.</p>
 
@@ -172,7 +172,7 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
 
 
         <h3>System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h3>
-        <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services.</p>
+        <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
         <ul>
         <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]<br>The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7 under the How to Run Guide.<br>Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout) and specifies the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
@@ -209,8 +209,21 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <br>Service Response: bool updated, float32 theta, float32[] position
         <br>The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), through the method outlined in the Global Camera section above, it computes the Zumy's position and theta. It then, similarly to the tf_service, stores these values in a dictionary, where the Zumy string name is the key and returns to the Controller the Zumy's position and rotation.
         </li>
-        <li><strong>explore_service</strong> - Controller Initiated<br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished<br>Service Response: float32[] position, bool hard_stop<br>explanation</li>
+        <li><strong>explore_service</strong> - Controller Initiated
+        <br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished
+        <br>Service Response: float32[] position, bool hard_stop
+        <br>The explore_service is the brain of the entire operation. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. 
+        In it's response, it tells the Zumy whether it should keep exploring (by sending it to a new position if the Controller says it is finished in reaching its exploration) or by keeping still at it's position. When a Zumy's photo data reaches over a threshold, it tells that Zumy to stop and tells the other Zumy the position of that Zumy. 
+        Furthermore, it can issue a hard_stop to Zumies. Because it konws the positions of all of them, it can tell them to hard_stop when they would collide and lets one of them go. It is truly the brains of the operation.</li>
         </ul>
+
+        <p><strong>Launch Files</strong>
+        <br>The following are the launch files that were launched to begin running our system.</p>
+        <ul>
+        <li><strong>run_all.launch</strong>
+        </li>
+        <li><strong>remote_zumy.launch</strong>
+        </li>
 
         <p><strong>System Architecture Visual</strong></p>
         <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; height:auto;"></p>
