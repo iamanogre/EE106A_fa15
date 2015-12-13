@@ -41,9 +41,14 @@
     <div class="row">
       <div class="twelve columns">
         <h2 class="header">1) Introduction</h2>
-        <p>The goal of this project is to successfully launch an autonomous network of three Zumies (small mobile robots, as seen above) to explore a surrounding area in search of light. The purpose of searching for light is to recharge the Zumies' solar cells and effectively keep each other running autonomously whilst exploring an unknown enviroment. Interesting features of this project are the ROS (Robot Operating System) network that connects, coordinates, and runs the Zumies as well as the light sensing and position tracking components.</p>
+        <p>The goal of this project is to successfully launch an autonomous network of three Zumies (small mobile robots, as seen
+        above) to explore a surrounding area in search of light. The purpose of searching for light is to recharge the Zumies' solar 
+        cells and effectively keep each other running autonomously whilst exploring an unknown enviroment. Interesting features of
+        this project are the ROS (Robot Operating System) network that connects, coordinates, and runs the Zumies as well as the light
+        sensing and position tracking components.</p>
 
-        <p>Our mission is to one day have the Zumies on another planet, aiding in autonomous planet exploration with the self-sustainable tactic of locating light and communicating to each other the best source of light. </p>
+        <p>Our mission is to one day have the Zumies on another planet, aiding in autonomous planet exploration with the 
+        self-sustainable tactic of locating light and communicating to each other the best source of light. </p>
 
         <p>Here is a sample video.</p> 
        
@@ -56,12 +61,26 @@
      	<div class="twelve columns">
         <h2 class="header">2) Design</h2>
         <h3>Initial Design</h3>
-        <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera to simulate realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and thus cannot determine its position accurately from it's camera readings, it would instead use the Kalman Filter, integrating readings from it's accelerometer to accurately calculate its position.</p>
-        <p>In terms of exploring, the three Zumies would explore an equal region in the field and when one of them found a sufficient source of light to charge its solar cells, it would signal to the others to stop searching. The other Zumies would stop searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
+        <p>Our initial design was to mount cameras and four photocells onto each Zumy instead of using a global camera to simulate 
+        realistic exploration. AR tags placed in the field of exploration would be objects of known positions - landmark AR tags. 
+        From these AR tags, a Zumy can determine it's position within the field. Further, when a Zumy does not see an AR tag, and 
+        thus cannot determine its position accurately from it's camera readings, it would instead use the Kalman Filter, integrating
+        readings from it's accelerometer to accurately calculate its position.</p>
+        <p>In terms of exploring, the three Zumies would explore an equal region in the field and when one of them found a sufficient
+        source of light to charge its solar cells, it would signal to the others to stop searching. The other Zumies would stop
+        searching and having received the position of it's fellow Zumy, they would navigate over to the source of light. </p>
 
         <h3>Final Design</h3>
-        <p>The project was an overall successful and the majority of the initial objectives were met – the most notable difference with the initial design is that the Kalman Filter was not implemented. This is because the readings from the accelerometer of the IMU (Inertial Measuring Unit) were found to be unreliable. It was decided that a global camera, overlooking the entire exploration area would be used to simulate the Kalman Filter. Similarly, it would only provide information to the Zumy when the mounted camera could not see an AR tag.</p>
-        <p>Furthermore, although it was initially planned to use multiple Zumies searching an area for light, only one Zumy was used for photo-detection as there were limited Zumies available in the department. All of the software was designed to allow multiple Zumies to explore and thus it is easy to expand the project to multiple Zumies. A second Zumy, without light sensors or a mounted camera, was added and told to explore to show that once a Zumy discovers a strong enough light source, all exploration Zumies would assemble at this point.</p>
+        <p>The project was an overall successful and the majority of the initial objectives were met – the most notable difference 
+        with the initial design is that the Kalman Filter was not implemented. This is because the readings from the accelerometer 
+        of the IMU (Inertial Measuring Unit) were found to be unreliable. It was decided that a global camera, overlooking the entire
+        exploration area would be used to simulate the Kalman Filter. Similarly, it would only provide information to the Zumy when 
+        the mounted camera could not see an AR tag.</p>
+        <p>Furthermore, although it was initially planned to use multiple Zumies searching an area for light, only one Zumy was used 
+        for photo-detection as there were limited Zumies available in the department. All of the software was designed to allow
+        multiple Zumies to explore and thus it is easy to expand the project to multiple Zumies. A second Zumy, without light sensors 
+        or a mounted camera, was added and told to explore to show that once a Zumy discovers a strong enough light source, all 
+        exploration Zumies would assemble at this point.</p>
         <p>The table below shows the main differences of the final design relative to the initial objectives:</p>
         <table class="u-full-width">
           <thead>
@@ -86,25 +105,35 @@
           </tr>
         </table>
 
-        <p>The photograph below shows the final setup which was used for the project. It should be noted that the global camera cannot be seen but is overlooking the exploration region. Of further note is that the region is split equally in two parts between the Zumies. The top part is explored by the un-sensorised whilst the lower part is explored by the Zumy with sensors. A patch of bright light was added so that the Zumies stop exploring once it has been found.</p>
+        <p>The photograph below shows the final setup which was used for the project. It should be noted that the global camera cannot
+        be seen but is overlooking the exploration region. Of further note is that the region is split equally in two parts between
+        the Zumies. The top part is explored by the un-sensorised whilst the lower part is explored by the Zumy with sensors. A patch
+        of bright light was added so that the Zumies stop exploring once it has been found.</p>
 
         <p style="text-align:center;"><img src="img/setup.png" alt="Setup" style="width:100%; height:auto;"></p>
 
-        <p><strong>Zumy Setup</strong><br>The Zumy was modfied in order to attach light sensors, mounted AR tags as well as a mounted camera and these modifications are shown in the figures below.</p>
+        <p><strong>Zumy Setup</strong><br>The Zumy was modfied in order to attach light sensors, mounted AR tags as well as a 
+        mounted camera and these modifications are shown in the figures below.</p>
 
         <p style="text-align:center;"><img src="img/ZumyIllustration.jpg" alt="Zumy" style="width:100%; height:auto;"></p>
 
         <p style="text-align:center;"><img src="img/setup2.png" alt="Setup2" style="width:100%; height:auto;"></p>
 
-        <p>The four photoresistors used to detect light were connected to the Analog inputs pins on the Zumy’s microprocessor via a breadboard as shown in the figure below.</p>
+        <p>The four photoresistors used to detect light were connected to the Analog inputs pins on the Zumy’s microprocessor via a
+        breadboard as shown in the figure below.</p>
 
         <p style="text-align:center;"><img src="img/setup3.png" alt="Setupe3" style="width:100%; height:auto;"></p>
 
         <h3>Design Choices and Tradeoffs</h3>
         <p>Traded kalman filter for global camera. Did not add noise to the global camera reading, but should have to simulate reality. 
-We decided to keep all of our services separate simply to be able to easily debug. Ideally, we would have combined these 3 services into 1. This one service would basically generate its own positions and thetas from parsing through all the tf’s, maintain a position and theta of each zumy, read in photo data readings from the zumy, do all the computation of the three services, and would effectively publish only a twist to each zumy.</p>
-        <h3>ow do these design choices impact how well the project meets design criteria which would be encountered in a real engineering application, such as robustness, durability, and efficiency?</h3>
-        <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
+        We decided to keep all of our services separate simply to be able to easily debug. Ideally, we would have combined these 3 
+        service into 1. This one service would basically generate its own positions and thetas from parsing through all the tf’s, 
+        maintain a position and theta of each zumy, read in photo data readings from the zumy, do all the computation of the three 
+        services, and would effectively publish only a twist to each zumy.</p>
+        <h3>ow do these design choices impact how well the project meets design criteria which would be encountered in a real 
+        engineering application, such as robustness, durability, and efficiency?</h3>
+        <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks
+        down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
       </div>
     </div>
 
@@ -114,63 +143,91 @@ We decided to keep all of our services separate simply to be able to easily debu
         <h2 class="header">3) Implementation</h2>
 
           <h3>Positioning System</h3>
-          <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags are in the field of view of the mounted camera - as previously mentioned, this is done to simulate the Kalman filter.</p>
-          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below - therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
+
+          <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking 
+          the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags 
+          are in the field of view of the mounted camera – as previously mentioned, this is done to simulate the Kalman filter.</p>
+          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the 
+          orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below – 
+          therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
+
           <p>The following section discusses how each of these methods are used to estimate the positions of the Zumy.</p>
 
           <h3>Mounted Camera</h3>
-          <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the transform from the origin to itself and thus both the position and orientation of the Zumy, relative to the origin, can be inferred. </p>
+          <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR 
+          tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to
+          estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the
+          transform from the origin to itself and thus both the position and orientation of the Zumy, relative to the origin, can
+          be inferred. </p>
 
           <p style="text-align:center;"><img src="img/rviz.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
-          <p>The figure below shows the case where the Zumy is facing AR tag 3. The position can then be easily calculated using the formula below since the transform from the origin to the AR tag is known and the Zumy’s camera can measure the transform the Zumy to the AR tag.</p>
+          <p>The figure below shows the case where the Zumy is facing AR tag 3. The position can then be easily calculated using 
+          the formula below since the transform from the origin to the AR tag is known and the Zumy’s camera can measure the
+          transform the Zumy to the AR tag.</p>
 
           <p style="text-align:center;"><img src="img/equations1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
-          <p>To calculate the orientation of the Zumy, a simple addition or subtraction from the angle measured by the mounted camera is required (the amount to add or subtract depends on which AR is in view) – this is so that theta is measured anti-clockwise from the positive y-axis of the origin.</p>
+          <p>To calculate the orientation of the Zumy, a simple addition or subtraction from the angle measured by the mounted 
+          camera is required (the amount to add or subtract depends on which AR is in view) – this is so that theta is measured
+          anti-clockwise from the positive y-axis of the origin.</p>
 
           <p style="text-align:center;"><img src="img/position_track1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
           <h3>Global Camera</h3>
-          <p>The position and orientation of the Zumy relative to the origin can easily be calculated using the AR tag located on the zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the following below.</p>
+          <p>The position and orientation of the Zumy relative to the origin can easily be calculated using the AR tag located on
+          the zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the
+          following below.</p>
           
           <p style="text-align:center;"><img src="img/equations2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
           <p>The orientation of the Zumy can be extracted from the transform from the origin to the Zumy. </p>
 
           <h3>Motion and Exploration</h3>
 
-          <p>Another important section in this project was the exploration phase. The main goals consisted of telling the Zumy to move to certain locations within the exploration region and measuring the local light intensity as it navigates. </p>
-          <p>The first step was to tell the Zumy to move from one point within our region to another. 
-          The figure below shows the case where the Zumy starts off at point A with orientation theta and needs to move towards point B. 
-          The flow chart below illustrates the algorithm which controls how the Zumy moves from point A to point B. 
-          θd is the angle which the Zumy must face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using simple trigonometry. </p>
+          <p>Another important section in this project was the exploration phase. The main goals consisted of telling the Zumy to 
+          move to certain locations within the exploration region and measuring the local light intensity as it navigates. </p>
+          <p>The first step was to tell the Zumy to move from one point within our region to another. The figure below shows the
+          case where the Zumy starts off at point A with orientation theta and needs to move towards point B. The flow chart below
+          illustrates the algorithm which controls how the Zumy moves from point A to point B. θd is the angle which the Zumy must
+          face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using 
+          simple trigonometry. </p>
 
           <p style="text-align:center;"><img src="img/flowChart.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
-          <p>Essentially, the Zumy is told to rotate until it is facing the desired location to within a certain bound. The Zumy will then proceed to move forward, and continuously makes small adjustments in its orientation in order to advance in the correct direction, until it reaches its target location. The software was written such the Zumy always rotates in the direction closest to the desired orientation.</p>
+          <p>Essentially, the Zumy is told to rotate until it is facing the desired location to within a certain bound. The Zumy 
+          will then proceed to move forward, and continuously makes small adjustments in its orientation in order to advance in
+          the correct direction, until it reaches its target location. The software was written such the Zumy always rotates in
+          the direction closest to the desired orientation.</p>
 
           <p>The video below shows a test in which the Zumy is told to move from one location to another.</p>
 
           <p>INSERT VIDEO HERE</p>
 
-          <p>The next stage was to split the region to be explored between the two Zumies and have one move towards the other when a moving average of the light readings exceeded a certain threshold value. After calibrating the sensors, the readings from each photo sensor ranged from around 0.2 in the darkness up to 1.0 in high light intensity. A threshold value of 0.7 seemed to produce reasonable results. Since the region to be explored was rather small, each Zumy was assigned to half the total area and each would explore its area randomly as shown in the video below.</p>
+          <p>The next stage was to split the region to be explored between the two Zumies and have one move towards the other when
+          a moving average of the light readings exceeded a certain threshold value. After calibrating the sensors, the readings 
+          from each photo sensor ranged from around 0.2 in the darkness up to 1.0 in high light intensity. A threshold value of
+          0.7 seemed to produce reasonable results. Since the region to be explored was rather small, each Zumy was assigned to 
+          half the total area and each would explore its area randomly as shown in the video below.</p>
 
           <p>INSERT VIDEO HERE</p>
           
           <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
           
           <h3>Hardware Used. Illustrate with pictures and diagrams.</h3>
-          <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
-<p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library, which returns transforms used in our tracking algorithm</p><p>
+          <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
+          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
+          communicate with the Kalman filter. 
+<p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library,
+which returns transforms used in our tracking algorithm</p><p>
 Photoresistor - light sensitive resistor. Has variable resistance that changes with exposure to light</p><p>
 Voltage divider circuit - simple circuit taking advantage of photoresistor’s dynamic resistance to output a variable voltage</p>
         <h3>Parts</h3>
         <p>
-Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf topic.  
+Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected 
+wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf
+topic.  
 </p>
         
-
-
         <h3>System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h3>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
@@ -185,9 +242,12 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <li><strong>zumyxx_cmd_vel</strong>
         <br>Message Published: Twist [found in geometry_msgs]
         <br>Publishing a Twist to zumyxx_cmd_vel makes the Zumy move. Of key note are that the Zumy cannot move sideways, and thus, only values written to Twist.linear.x (forward speed) and Twist.angular.z (rotation speed) are understood by the Zumy.
+
         </ul>
-        <p><strong>Nodes</strong><br>Although there are many nodes present in our system, such as the camera nodes and service nodes, one of these nodes requires greater explanation and is outlined in greater detail below.</p>
+        <p><strong>Nodes</strong><br>Although there are many nodes present in our system, such as the camera nodes and service
+        nodes, one of these nodes requires greater explanation and is outlined in greater detail below.</p>
         <ul>
+
         <li><strong>Controller</strong>
         <br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services, which are explained below. 
         Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
@@ -215,6 +275,7 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <br>The explore_service is the brain of the entire operation. All Controllers message the explore_service with their Zumy's position and photo data, and the explore_service calculates the desired positions the Zumy's should explore. 
         In it's response, it tells the Zumy whether it should keep exploring (by sending it to a new position if the Controller says it is finished in reaching its exploration) or by keeping still at it's position. When a Zumy's photo data reaches over a threshold, it tells that Zumy to stop and tells the other Zumy the position of that Zumy. 
         Furthermore, it can issue a hard_stop to Zumies. Because it konws the positions of all of them, it can tell them to hard_stop when they would collide and lets one of them go. It is truly the brains of the operation.</li>
+
         </ul>
 
         <p><strong>Launch Files</strong>
@@ -226,7 +287,8 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         </li>
 
         <p><strong>System Architecture Visual</strong></p>
-        <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; height:auto;"></p>
+        <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; 
+        height:auto;"></p>
         
       </div>
    	</div>
@@ -237,7 +299,10 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <h2 class="header">4) Result</h2>
         <h3>How well did your project work? What tasks did it perform?</h3>
         <p>The project was a success. We managed to get 1 Zumy to explore an area marked 
-out with Landmark AR tags and with an overlooking global AR tag and measure the level of light as it does so. When the zumy records a level of light above a certain threshold, it stops and tells the other zumy to come join it. We only had 1 sensorized Zumy and 1 Unsensorized zumy because it meant we had to modifiy the hardware quite a bit and would make other Zumies unusable. The code is set up to easily allow other Zumies to join in.</p>
+out with Landmark AR tags and with an overlooking global AR tag and measure the level of light as it does so. When the zumy records a
+level of light above a certain threshold, it stops and tells the other zumy to come join it. We only had 1 sensorized Zumy and 1 
+Unsensorized zumy because it meant we had to modifiy the hardware quite a bit and would make other Zumies unusable. The code is set 
+up to easily allow other Zumies to join in.</p>
         <h3>Illustrate with a video and pictures</h3>
         <p>See pictures and videos.</p>
       </div>
@@ -247,27 +312,38 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">5) Conclusion</h2>
-        <h3>Final Design Overview / Results. How well did your finished solution meet your design criteria?</h3>
-        <p>Have a nice table showing our design criteria and comparing it to the final design criteria - explain why they are not the same if so</p>
+        <h3>Initial Designs, Problems, and Fixes </h3>
 
-        <h3>Difficulties. Does your solution have any flaws or hacks? </h3>
-
-        <p>Kalman filter and sometimes the global camera wasn’t too reliable / The global camera is a hack and if we had more time we could remove it by adding a KF.  → This is basically explaining any further improvements we wish to make</p>
+        <p>At the start of our project, we had an overall goal, a general idea of how to reach it, and the tools to implement it. 
+        However, along the way, we ran into problems. To solve them, we had to make changes to our original design to get around to
+        our final goal. </p>
         <table class="u-full-width">
           <thead>
-            <td>Deviations</td>
+            <td>Original Design and Problem </td>
             <td>Temporary Fix</td>
-            <td>More Permanent Solution</td>
+            <td>More Permanent/Desirable Solution</td>
           </thead>
           <tr>
-            <td>Kalman Filter with accelerometer was not very accurate making <span>position tracking</span> difficult</td>
-            <td>Used a global camera to look at Zumies to simulate a system that can keep track of Zumy if it doesn't find an AR tage and origion to find orientation</td>
-            <td>Possible solutions include:<br>- Improve filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate distance</td>
+            <td>Use imu service to estimate position. However, Kalman Filter with accelerometer was not very accurate making 
+            <span>position tracking</span> difficult</td>
+            <td>Used a global camera to look at Zumies to simulate a system that can keep track of Zumy if it doesn't find an AR 
+            tage and origion to find orientation</td>
+            <td>Possible solutions include:<br>- Improve filter, accelerometer, and gyroscope<br>- Use wheel encoders to estimate 
+            distance</td>
+          </tr>
+          </thead>
+          <tr>
+            <td>Use Zumy's camera transform to landmark AR tag to calcuate orientation relative to global origin but difficulty 
+            getting the right transform</td>
+            <td>Used one more AR tag at origin and the global camera and the ar_track_alvar library to get the transform</td>
+            <td>Use better filter and more accurate gyroscope to keep track and update orientation</td>
           </tr>
           <tr>
-           <td>Using only 2 Zumies, only 1 has light sensors</td>
-            <td>Work with 2 zumies and have the one with light sensors be the one to "find" the light and have the one without any sensors move to it</td>
-            <td>Current code can easily be expanded to account for more zumies and setting up light sensors on Zumy is also relatively easy</td>
+           <td> Use 3 Zumy's but lack of available dedicated Zumy's made it difficult to secure 3 to setup sensors on</td>
+            <td>Work with 2 zumies and have one with light sensors be the one to "find" the light and have the one without 
+            any sensors move to it</td>
+            <td>Current code can easily be expanded to account for more zumies and setting up light sensors on Zumy is also
+            relatively easy</td>
           </tr>
         </table>
 
@@ -276,12 +352,17 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
 
         <h3>Future Improvements</h3>
         <ul>
-          <li>Combine all services into one package that takes all the information around the system, parses through all of it, and simply issues each zumy a twist.</li>
+          <li>Combine all services into one package that takes all the information around the system, parses through all of it, and
+          simply issues each zumy a twist.</li>
           <li>Implement more permanent solutions, i.e. remove the global camera and use the Kalman Filter.</li>
           <li>Eliminate the use of AR tags by simply using image detection algorithms and by only using the Zumy's cameras.</li>
-          <li>Improve exploration algorithm. The current exploration is random and this is not desirable for bigger areas of exploration.</li>
-          <li>Add obstacles and implement obstacle avoidance. However, the obstacles will either have to have AR tags or the implement the image detection algorithm.</li>
-          <li>Go up light gradient. Instead of stopping once the light sensor detects past a certain threshold, lower the threshold and have Zumy detect lower thresholds and move up a gradient to find brighter areas. This allows it to better find distant light sources. </li>
+          <li>Improve exploration algorithm. The current exploration is random and this is not desirable for bigger areas of 
+          exploration.</li>
+          <li>Add obstacles and implement obstacle avoidance. However, the obstacles will either have to have AR tags or the 
+          implement the image detection algorithm.</li>
+          <li>Go up light gradient. Instead of stopping once the light sensor detects past a certain threshold, lower the 
+          threshold and have Zumy detect lower thresholds and move up a gradient to find brighter areas. This allows it to better
+          find distant light sources. </li>
         </ul>
       </div>
    	</div>
@@ -306,7 +387,8 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
         <h3>Code / Code, URDFs, and launch files you wrote</h3>
         <p><a href="https://github.com/iamanogre/EE106A_fa15">Link</a> to github</p>
         <h3>How to Run Guide</h3>
-        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup bash stuff</p>
+        <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup
+        bash stuff</p>
         <h3>Datasheets for components used in your solution</h3>
         <p>photocells, 10 k-ohm resistors</p>
       </div>
