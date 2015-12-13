@@ -32,7 +32,7 @@
       <div class="twelve columns">
         <h1>Zumy Light Exploration <span style="float:right">EE106A Fall 2015 Final Project</span></h1>
         <p style="padding-top:2em;"></p>
-        <p style="text-align:center;"><img src="img/zumy.png" alt="Zumy" style="width:100%; height:auto;"></p>
+        <p style="text-align:center;"><img src="img/Front_pic_v1.jpg" alt="Zumy" style="width:100%; height:auto;"></p>
        	<h3 style="text-align:center;margin-top:-2.1em;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color:white;opacity:0.9;"><em>"simulating the exploration of an unknown planet"</em></h3>
       </div>
     </div>
@@ -114,8 +114,8 @@ We decided to keep all of our services separate simply to be able to easily debu
         <h2 class="header">3) Implementation</h2>
 
           <h3>Positioning System</h3>
-          <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags are in the field of view of the mounted camera – as previously mentioned, this is done to simulate the Kalman filter.</p>
-          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below – therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
+          <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags are in the field of view of the mounted camera - as previously mentioned, this is done to simulate the Kalman filter.</p>
+          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below - therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
           <p>The following section discusses how each of these methods are used to estimate the positions of the Zumy.</p>
 
           <h3>Mounted Camera</h3>
@@ -140,7 +140,10 @@ We decided to keep all of our services separate simply to be able to easily debu
           <h3>Motion and Exploration</h3>
 
           <p>Another important section in this project was the exploration phase. The main goals consisted of telling the Zumy to move to certain locations within the exploration region and measuring the local light intensity as it navigates. </p>
-          <p>The first step was to tell the Zumy to move from one point within our region to another. The figure below shows the case where the Zumy starts off at point A with orientation theta and needs to move towards point B. The flow chart below illustrates the algorithm which controls how the Zumy moves from point A to point B. θd is the angle which the Zumy must face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using simple trigonometry. </p>
+          <p>The first step was to tell the Zumy to move from one point within our region to another. 
+          The figure below shows the case where the Zumy starts off at point A with orientation theta and needs to move towards point B. 
+          The flow chart below illustrates the algorithm which controls how the Zumy moves from point A to point B. 
+          θd is the angle which the Zumy must face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using simple trigonometry. </p>
 
           <p style="text-align:center;"><img src="img/flowChart.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
@@ -173,24 +176,44 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
         <ul>
         <li><strong>zumyxx/photo</strong><br>Message Published: Float32MultiArray [found in std_msgs]<br>The 'xx' in the topic refers to the respective Zumy. For example, zumy3b/photo is photo data published by Zumy3b. The required files to upload onto the Zumy (zumy.py and zumy_ros_bridge.py) can be found in section 7 under the How to Run Guide.<br>Float32MultiArray is a complex data structure, consisting of two data types. The first is layout (called through Float32MultiArray.layout) and specifies the layout of the data of the array. The second is data (called through Float32MultiArray.data), which contains the actual float array. The format of this float array, for our purposes, is a four-element list of floats. Each float represents the analog value read from each photo resistor on the zumy. </li>
-        <li><strong>tf</strong><br>Message Published: TFMessage [found in tf2_msgs]<br>There are a variety of nodes that publish onto this topic.<br>The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b. The Transform information encapsulated by the TFMessage from a usb_cam_zumy3b comes the Zumy's camera.<br>The other node that publishes to the tf topic is the global camera. The Transform encapsulated in it's TFMessage is the Transform between the origin tag to the Zumy's tag in the field.<br>TFMessage is also another complex message type. The fields to pay close attention to are its TFMessage.transforms[0].child_frame_id, which contains the publishing node (usb_cam or usb_cam_zumyxx) and TFMessage.transforms[0].transform, which contains the Transform.</li>
-        <li><strong>zumyxx_cmd_vel</strong><br>Message Published: Twist [found in geometry_msgs]<br>Publishing a Twist to zumyxx_cmd_vel makes the Zumy move. Of key note are that the Zumy cannot move sideways, and thus, only values written to Twist.linear.x (forward speed) and Twist.angular.z (rotation speed) are understood by the Zumy.
+        <li><strong>tf</strong><br>Message Published: TFMessage [found in tf2_msgs]
+        <br>There are a variety of nodes that publish onto this topic.
+        <br>The first nodes are usb_cam_zumyxx. Once again, "xx" denotes the correspoding Zumy. Thus a TFMessage from usb_cam_zumy3b is a TFMessage from Zumy3b. The Transform information encapsulated by the TFMessage from a usb_cam_zumy3b comes the Zumy's camera.
+        <br>The other node that publishes to the tf topic is the global camera. The Transform encapsulated in it's TFMessage is the Transform between the origin tag to the Zumy's tag in the field.
+        <br>TFMessage is also another complex message type. The fields to pay close attention to are its TFMessage.transforms[0].child_frame_id, which contains the publishing node (usb_cam or usb_cam_zumyxx) and TFMessage.transforms[0].transform, which contains the Transform.
+        </li>
+        <li><strong>zumyxx_cmd_vel</strong>
+        <br>Message Published: Twist [found in geometry_msgs]
+        <br>Publishing a Twist to zumyxx_cmd_vel makes the Zumy move. Of key note are that the Zumy cannot move sideways, and thus, only values written to Twist.linear.x (forward speed) and Twist.angular.z (rotation speed) are understood by the Zumy.
         </ul>
         <p><strong>Nodes</strong><br>Although there are many nodes present in our system, such as the camera nodes and service nodes, one of these nodes requires greater explanation and is outlined in greater detail below.</p>
         <ul>
-        <li><strong>Controller</strong><br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services, which are explained below. Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
+        <li><strong>Controller</strong>
+        <br>Each Zumy in the system gets its own controller node. This controller is responsible for interfacing with all other nodes and services, which are explained below. 
+        Of key note is that this controller node grabs all of the information, specifically the photo data readings and the Zumy's current position, sends this to an Explorer Service, receives back the position it should make the Zumy go to, and finally, calculates and publishes the correct twist to the Zumy.</li>
         </ul>
-        <p><strong>Services</strong><br>The following are the services that enable our system information exchange and essentially run the system. Services are unique because unlike topics, information is not continuously published and is only exchanged when prompted and correctly follows the specified service messages. The services below indicate the side that initiates first and which effectively sends the request.</p>
+        <p><strong>Services</strong>
+        <br>The following are the services that enable our system information exchange and essentially run the system. 
+        Services are unique because unlike topics, information is not continuously published and is only exchanged when prompted and correctly follows the specified service messages. 
+        The services below indicate the side that initiates first and which effectively sends the request.</p>
         <ul>
-        <li><strong>tf_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>The purpose of this service is for the Controller to find its current position and rotation in the area by asking this service. The service request basically states for which Zumy's position is required and it is a string (string zumy). The response is an updated flag, the theta or rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float.<br>The tf_service is able to calculate the Zumy's position specifically from listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service can grab the transform, turn into the correct theta and position, store it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. The update flag is used to  indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.</li>
-        <li><strong>global_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>explanation</strong></li>
+        <li><strong>tf_service</strong> - Controller Initiated
+        <br>Service Request: string zumy
+        <br>Service Response: bool updated, float32 theta, float32[] position
+        <br>The purpose of this service is for the Controller to find its current position and rotation in the area by asking this service. The service request basically states for which Zumy's position is required and it is a string (string zumy). The response is an updated flag, the theta or rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float.
+        <br>The tf_service is able to calculate the Zumy's position specifically from listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service follows the procedure outlined in the "Mounted Camera" sectio above, turning the transform into the correct theta and position, stores it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. 
+        The update flag is used to  indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.
+        </li>
+        <li><strong>global_service</strong> - Controller Initiated
+        <br>Service Request: string zumy
+        <br>Service Response: bool updated, float32 theta, float32[] position
+        <br>The global_service works similarly to the tf_service. It listens for tf's on the tf topic from the global camera (usb_cam), through the method outlined in the Global Camera section above, it computes the Zumy's position and theta. It then, similarly to the tf_service, stores these values in a dictionary, where the Zumy string name is the key and returns to the Controller the Zumy's position and rotation.
+        </li>
         <li><strong>explore_service</strong> - Controller Initiated<br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished<br>Service Response: float32[] position, bool hard_stop<br>explanation</li>
         </ul>
 
         <p><strong>System Architecture Visual</strong></p>
-        <p>Pictures of how our services interact</p>
         <p style="text-align:center;"><img src="img/Service_Explorer_Diagram.jpg" alt="Flow Chart" style="width:100%; height:auto;"></p>
-        <h3>System Architecture <!-- Describe each step.--></h3>
         
       </div>
    	</div>
