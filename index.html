@@ -51,11 +51,12 @@
         self-sustainable tactic of locating light and communicating to each other the best source of light. </p>
 
         <p>Here is a sample video.</p> 
-        <div style="text-align:center;">
+        <div style="text-align:center;padding-bottom:2em;">
           <iframe width="800" height="500"
           src="https://www.youtube.com/embed/0k9ZuHElfLA" >
           </iframe>
           </div>
+
       </div>
     </div>
  
@@ -146,6 +147,13 @@
      	<div class="twelve columns">
         <h2 class="header">3) Implementation</h2>
 
+          <h3>Simple Terminology</h3>
+          <p><strong>Zumy</strong> - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
+          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
+          communicate with the Kalman filter. 
+          <p><strong>Photoresistor</strong> - light sensitive resistor. Has variable resistance that changes with exposure to light</p>
+          <p><strong>Voltage divider circuit</strong> - simple circuit taking advantage of photoresistor's dynamic resistance to output a variable voltage</p>
+
           <h3>Positioning System</h3>
 
           <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking 
@@ -219,15 +227,6 @@
           
           <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
           
-          <h3>Hardware Used. Illustrate with pictures and diagrams.</h3>
-          <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors 
-          for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to
-          communicate with the Kalman filter. 
-<p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library,
-which returns transforms used in our tracking algorithm</p><p>
-Photoresistor - light sensitive resistor. Has variable resistance that changes with exposure to light</p><p>
-Voltage divider circuit - simple circuit taking advantage of photoresistor’s dynamic resistance to output a variable voltage</p>
-        
         <h3>System Architecture and Software Guide <!-- Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.--></h3>
         <p>Our software is primarily constructed from ROS packages and consists of topics, nodes, and services. All of the programs we wrote were written in Python.</p>
         <p><strong>Topics</strong><br>The following are the ROS topics that publish our system information.</p>
