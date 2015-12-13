@@ -7,6 +7,26 @@
  	<!-- CSS --> 
  	<link rel="stylesheet" href="css/skeleton.css">
  	<link rel="stylesheet" href="css/custom.css">
+
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+      $("#garv").hover(function(){
+          $("#description").empty();
+          $("#description").append("<p>Gary Choi is a Senior in EECS at UC Berkeley.</p>")
+      });
+      $("#gary").hover(function(){
+          $("#description").empty();
+          $("#description").append("<p>Gary Hoang is a Junior in EECS at UC Berkeley.</p>")
+      });
+      $("#xavier").hover(function(){
+          $("#description").empty();
+          $("#description").append("<p>Xavier Lavenir is a Senior in Mechanical Engineering at Imperial College London.</p>")
+      });
+    });
+  </script>
  </head>
  <body>
  
@@ -395,11 +415,18 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">6. Team</h2>
-          <p><strong>Gary Choi</strong> is a Senior in EECS at UC Berkeley</p> 
-          <p><strong>Gary Hoang</strong> is a Junior in EECS at UC Berkeley</p> 
-          <p><strong>Xavier Lavenir</strong> is a Senior in Mechanical from Imperial College London</p>         
       </div>
- 	</div>
+    </div>
+    <div class="row" style="padding-bottom:2em;">
+      <div class="four columns" style="text-align:center;float:left;" id="garv"><img src="img/GaryChoi.jpg" alt="Zumy" style="width:100%; height:auto;"></div>
+      <div class="four columns" style="text-align:center;" id="gary"><img src="img/GaryHoang.jpg" alt="Zumy" style="width:100%; height:auto;"></div>
+      <div class="four columns" style="text-align:center;" id="xavier"><img src="img/XavierLavenir.jpg" alt="Zumy" style="width:100%; height:auto;"></div>
+      </div>
+      <div class="row">
+      <div class="twelve columns" style="text-align:center;" id="description">
+        <p>Hover over a picture to read a bio!</p>
+      </div>
+ 	  </div>
      
     <p class="excess" id="add_materials"></p> 
    	<div class="row">
@@ -431,5 +458,6 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
    	</div>
  
  </div>
+
  </body>
  </html>
