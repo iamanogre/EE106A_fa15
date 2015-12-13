@@ -119,10 +119,12 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
         </ul>
         <p><strong>Services</strong><br>The following are the services that enable our system information exchange and essentially run the system. Services are unique because unlike topics, information is not continuously published and is only exchanged when prompted and correctly follows the specified service messages. The services below indicate the side that initiates first and which effectively sends the request.</p>
         <ul>
-        <li><strong>tf_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>explanation</li>
+        <li><strong>tf_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>The purpose of this service is for the Controller to find its current position and rotation in the area by asking this service. The service request basically states for which Zumy's position is required and it is a string (string zumy). The response is an updated flag, the theta or rotation the Zumy currently makes with the +Y-axis, and the Zumy's position in a two-element float.<br>The tf_service is able to calculate the Zumy's position specifically from listening on the tf topic. Because it is capable of looking from where the TFMessage is published (usb_cam or usb_cam_zumyxx), the tf_service can grab the transform, turn into the correct theta and position, store it in it's own internal dictionary, where the Zumy is the key, and when prompted, returns this position and theta to the correct Zumy response. The update flag is used to  indicate to the Controller that the information the Controller is currently receiving from the tf_service is new information. In the case when the information is stale (because the Zumy's camera no longer sees a landmark AR tag), the Controller will ask the global_serivce for the Zumy's position.</li>
         <li><strong>global_service</strong> - Controller Initiated<br>Service Request: string zumy<br>Service Response: bool updated, float32 theta, float32[] position<br>explanation</strong></li>
         <li><strong>explore_service</strong> - Controller Initiated<br>Service Request: string zumy, float32[] position, float32[] photo_data, bool finished<br>Service Response: float32[] position, bool hard_stop<br>explanation</li>
         </ul>
+
+        <p><strong>System Architecture Summary</strong></p>
         <p>Pictures of services and stuff</p>
 
         <h3>System Architecture <!-- Describe each step.--></h3>
