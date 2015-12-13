@@ -200,7 +200,7 @@
 
           <h5 class="under">Global Camera</h5>
           <p>The position and orientation of the Zumy relative to the origin can easily be calculated using the AR tag located on
-          the zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the
+          the Zumy and the AR tag located at the origin. The transform from the origin to the Zumy can be calculated using the
           following below.</p>
           
           <p style="text-align:center;"><img src="img/equations2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
@@ -213,14 +213,14 @@
           <p>The first step was to tell the Zumy to move from one point within our region to another. The figure below shows the
           case where the Zumy starts off at point A with orientation theta and needs to move towards point B. The flow chart below
           illustrates the algorithm which controls how the Zumy moves from point A to point B. θd is the angle which the Zumy must
-          face within a certain bound to move forward as illustrated in the figure below - it can easily be calculated using 
+          face within a certain bound to move forward, as illustrated in the figure below - it can easily be calculated using 
           simple trigonometry. </p>
 
           <p style="text-align:center;"><img src="img/flowChart.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
-          <p>Essentially, the Zumy is told to rotate until it is facing the desired location to within a certain bound. The Zumy 
-          will then proceed to move forward, and continuously makes small adjustments in its orientation in order to advance in
-          the correct direction, until it reaches its target location. The software was written such the Zumy always rotates in
+          <p>Essentially, the Zumy is told to rotate until it is facing the desired location within a certain bound. The Zumy 
+          will then proceed to move forward and continuously makes small adjustments in its orientation in order to advance in
+          the correct direction, until it reaches its target location. The software was written such that the Zumy always rotates in
           the direction closest to the desired orientation.</p>
           <p style="text-align:center;"><img src="img/position_track2.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
@@ -231,8 +231,8 @@
           src="https://www.youtube.com/embed/ux2dBUnrHBU" >
           </iframe>
           </div>
-          <p>The next stage was to split the region to be explored between the two Zumies and have one move towards the other when
-          a moving average of the light readings exceeded a certain threshold value. After calibrating the sensors, the readings 
+          <p>The next stage is to split the exploration region between the two Zumies and have one move towards the other when
+          a moving average of the light readings exceeds a certain threshold value. After calibrating the sensors, the readings 
           from each photo sensor ranged from around 0.2 in the darkness up to 1.0 in high light intensity. A threshold value of
           0.7 seemed to produce reasonable results. Since the region to be explored was rather small, each Zumy was assigned to 
           half the total area and each would explore its area randomly as shown in the video below.</p>
