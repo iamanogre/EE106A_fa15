@@ -40,7 +40,7 @@
     <p class="excess" id="intro"></p> 
     <div class="row">
       <div class="twelve columns">
-        <h2>Introduction</h2>
+        <h2 class="header">1) Introduction</h2>
         <p>The goal of this project is to successfully launch an autonomous network of three Zumies (small mobile robots, as seen above) to explore a surrounding area in search of light. The purpose of searching for light is to recharge the Zumies' solar cells and effectively keep each other running autonomously whilst exploring an unknown enviroment. Interesting features of this project are the ROS (Robot Operating System) network that connects, coordinates, and runs the Zumies as well as the light sensing and position tracking components.</p>
 
         <p>Our mission is to one day have the Zumies on another planet, aiding in autonomous planet exploration with the self-sustainable tactic of locating light and communicating to each other the best source of light. </p>
@@ -54,7 +54,7 @@
     <p class="excess" id="design"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2>Design</h2>
+        <h2 class="header">2) Design</h2>
         <h3>Design Goals and Objectives</h3>
         <ol>
           <li>Position system</li>
@@ -100,7 +100,7 @@ We decided to keep all of our services separate simply to be able to easily debu
     <p class="excess" id="implementation"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2>Implementation</h2>
+        <h2 class="header">3) Implementation</h2>
           <h3>Describe any hardware you used or built. Illustrate with pictures and diagrams.</h3>
           <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
 <p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library, which returns transforms used in our tracking algorithm</p><p>
@@ -124,7 +124,7 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
     <p class="excess" id="result"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2>Result</h2>
+        <h2 class="header">4) Result</h2>
         <h3>How well did your project work? What tasks did it perform?</h3>
         <p>The project was a success. We managed to get 1 Zumy to explore an area marked 
 out with Landmark AR tags and with an overlooking global AR tag and measure the level of light as it does so. When the zumy records a level of light above a certain threshold, it stops and tells the other zumy to come join it. We only had 1 sensorized Zumy and 1 Unsensorized zumy because it meant we had to modifiy the hardware quite a bit and would make other Zumies unusable. The code is set up to easily allow other Zumies to join in.</p>
@@ -136,7 +136,7 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
     <p class="excess" id="conclusion"></p> 
    	<div class="row">
      	<div class="twelve columns">
-        <h2>Conclusion</h2>
+        <h2 class="header">5) Conclusion</h2>
         <h3>Final Design Overview / Discuss your results. How well did your finished solution meet your design criteria?</h3>
         <p>Have a nice table showing our design criteria and comparing it to the final design criteria - explain why they are not the same if so</p>
         <table class="u-full-width">
@@ -197,7 +197,7 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
     <p class="excess" id="team"></p> 
    	<div class="row" id="team">
      	<div class="twelve columns">
-        <h2>Team</h2>
+        <h2 class="header">6) Team</h2>
           <h3>Gary Choi</h3>
           <p>Stuff</p>
           <h3>Gary Hoang</h3>
@@ -210,7 +210,7 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
     <p class="excess" id="add_materials"></p> 
    	<div class="row" id="add_materials">
      	<div class="twelve columns">
-        <h2>Additional Materials</h2>
+        <h2 class="header">7) Additional Materials</h2>
         <h3>Code / Code, URDFs, and launch files you wrote</h3>
         <p>Link to github</p>
         <h3>Datasheets for components used in your solution</h3>
