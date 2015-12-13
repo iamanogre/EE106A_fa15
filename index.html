@@ -55,7 +55,7 @@
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">2) Design</h2>
-        <h3>Design Goals and Objectives</h3>
+        <h3>a) Initial Design</h3>
         <ol>
           <li>Position system</li>
           <ul>
@@ -69,7 +69,7 @@
             <li>Find area of highest light intensity to charge their cells</li>
           </ul>
         </ol>
-        <h3>Design Outcome / Describe the design you chose.</h3>
+        <h3>b) Final Design</h3>
         <p>*position tracking
   Must meet using landmark AR tags + kalman filter.
   Only came out to be landmark AR tags + global camera.
@@ -89,10 +89,10 @@
   Each zumy has a controller node. This node takes in the zumy’s photo data and when the zumy sees an AR tag, takes the position and theta from the tf_service, or when the zumy does not see an AR tag, takes the position readings from the global_service. Controller takes both of these and sends this data to the explorer node. What gets back is a position it should make the zumy go to. The Controller knows the position of the zumy and calculates the correct twist to make and sends this twist to the zumy to go to.
 </p>
 
-        <h3>What design choices did you make when you formulated your design? What tradeoffs did you have to make?</h3>
+        <h3>c) What design choices did you make when you formulated your design? What tradeoffs did you have to make?</h3>
         <p>Traded kalman filter for global camera. Did not add noise to the global camera reading, but should have to simulate reality. 
 We decided to keep all of our services separate simply to be able to easily debug. Ideally, we would have combined these 3 services into 1. This one service would basically generate its own positions and thetas from parsing through all the tf’s, maintain a position and theta of each zumy, read in photo data readings from the zumy, do all the computation of the three services, and would effectively publish only a twist to each zumy.</p>
-        <h3>How do these design choices impact how well the project meets design criteria which would be encountered in a real engineering application, such as robustness, durability, and efficiency?</h3>
+        <h3>d) How do these design choices impact how well the project meets design criteria which would be encountered in a real engineering application, such as robustness, durability, and efficiency?</h3>
         <p>Meets pretty well because robustness was building around and on the zumy. Durability is another issue because zumy breaks down, but that’s not really our problem. Efficiency is that it can be expanded out.</p>
       </div>
     </div>
@@ -101,20 +101,20 @@ We decided to keep all of our services separate simply to be able to easily debu
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">3) Implementation</h2>
-          <h3>Describe any hardware you used or built. Illustrate with pictures and diagrams.</h3>
+          <h3>a) Hardware Used. Illustrate with pictures and diagrams.</h3>
           <p>Zumy - a small mobile robot. Relevant features are the Linux OS on the robot to interface with ROS, USB connectors for camera and wifi to communicate with network, pins for analog input, gyroscope and accelerometer originally meant to communicate with the Kalman filter. 
 <p>Camera - camera mounted onto the zumy. Sends image to zumy which processes image with ar_track_alvar, an AR tag tracking library, which returns transforms used in our tracking algorithm</p><p>
 Photoresistor - light sensitive resistor. Has variable resistance that changes with exposure to light</p><p>
 Voltage divider circuit - simple circuit taking advantage of photoresistor’s dynamic resistance to output a variable voltage</p>
-        <h3>Parts</h3>
+        <h3>b) Parts</h3>
         <p>
 Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardboard which was attached to back of zumy. Connected wires to analog inputs of Zumy. Transform between camera and AR tag is calculated by zumy and sent through wifi to network as a tf topic.  
 </p>
 
-        <h3>Zumy</h3>
+        <h3>Zumy Picture</h3>
         <p style="text-align:center;"><img src="img/ZumyIllustration.jpg" alt="Zumy"></p>
 
-        <h3>Describe any software you wrote in detail. Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.</h3>
+        <h3>c) Describe any software you wrote in detail. Illustrate with diagrams, flow charts, or other appropriate visuals. This includes launch files, URDFs, etc.</h3>
         <p>Pictures of services and stuff</p>
         <h3>How does your complete system work? Describe each step.</h3>
         <p>Going to have to put some commands to tell people how to set up the project. Also what to change + catkin_make and setup bash stuff</p>
@@ -125,10 +125,10 @@ Put 4 voltage divider circuits on a breadboard. Attached it to a piece of cardbo
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">4) Result</h2>
-        <h3>How well did your project work? What tasks did it perform?</h3>
+        <h3>a) How well did your project work? What tasks did it perform?</h3>
         <p>The project was a success. We managed to get 1 Zumy to explore an area marked 
 out with Landmark AR tags and with an overlooking global AR tag and measure the level of light as it does so. When the zumy records a level of light above a certain threshold, it stops and tells the other zumy to come join it. We only had 1 sensorized Zumy and 1 Unsensorized zumy because it meant we had to modifiy the hardware quite a bit and would make other Zumies unusable. The code is set up to easily allow other Zumies to join in.</p>
-        <h3>Illustrate with a video and pictures</h3>
+        <h3>b) Illustrate with a video and pictures</h3>
         <p>See pictures and videos.</p>
       </div>
    	</div>
@@ -137,7 +137,7 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
    	<div class="row">
      	<div class="twelve columns">
         <h2 class="header">5) Conclusion</h2>
-        <h3>Final Design Overview / Discuss your results. How well did your finished solution meet your design criteria?</h3>
+        <h3>a) Final Design Overview / Results. How well did your finished solution meet your design criteria?</h3>
         <p>Have a nice table showing our design criteria and comparing it to the final design criteria - explain why they are not the same if so</p>
         <table class="u-full-width">
           <thead>
@@ -162,7 +162,7 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
           </tr>
         </table>
 
-        <h3>Difficulties / Did you encounter any particular difficulties? / Does your solution have any flaws or hacks? What improvements would you make if you had additional time?</h3>
+        <h3>b) Difficulties. Does your solution have any flaws or hacks? </h3>
         <p>Kalman filter and sometimes the global camera wasn’t too reliable / The global camera is a hack and if we had more time we could remove it by adding a KF.  → This is basically explaining any further improvements we wish to make</p>
         <table class="u-full-width">
           <thead>
@@ -182,10 +182,10 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
           </tr>
         </table>
 
-        <h3>Summary</h3>
+        <h3>c) Summary</h3>
         <p>Successfully met attainable objectives, but not reach goals, such as using 3 Zumies.</p>
 
-        <h3>Future Improvements</h3>
+        <h3>d) Future Improvements</h3>
         <ul>
           <li>Combine all services into one package that takes all the information around the system, parses through all of it, and simply issues each zumy a twist.</li>
           <li>Implement more permanent solutions, i.e. remove the global camera and use the Kalman Filter.</li>
@@ -211,9 +211,9 @@ out with Landmark AR tags and with an overlooking global AR tag and measure the 
    	<div class="row" id="add_materials">
      	<div class="twelve columns">
         <h2 class="header">7) Additional Materials</h2>
-        <h3>Code / Code, URDFs, and launch files you wrote</h3>
+        <h3>a) Code, URDFs, and launch files you wrote</h3>
         <p>Link to github</p>
-        <h3>Datasheets for components used in your solution</h3>
+        <h3>b) Datasheets for components used in your solution</h3>
         <p>photocells, 10 k-ohm resistors</p>
       </div>
    	</div>
