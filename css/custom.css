@@ -42,6 +42,7 @@ div {
 
 .left {
     position:absolute;
+    background:#ff0000;
     left:0; top:92px; bottom: 0px;
     width: 178px;
 }
