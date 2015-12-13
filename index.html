@@ -15,15 +15,15 @@
     $(document).ready(function(){
       $("#garv").hover(function(){
           $("#description").empty();
-          $("#description").append("<p>Gary Choi is a Senior in EECS at UC Berkeley.</p>")
+          $("#description").append('<p class="describe">Gary Choi is a Senior in Electrical Engineering and Computer Science at UC Berkeley. He loves low-level architecture and hopes to work at Microsoft one day. Recent survivor of EECS151 and May 2016 graduate.</p>')
       });
       $("#gary").hover(function(){
           $("#description").empty();
-          $("#description").append("<p>Gary Hoang is a Junior in EECS at UC Berkeley.</p>")
+          $("#description").append('<p class="describe">Gary Hoang is a Junior in EECS at UC Berkeley. Gary also wants to go to space one day. Recent survivor of EECS151.</p>')
       });
       $("#xavier").hover(function(){
           $("#description").empty();
-          $("#description").append("<p>Xavier Lavenir is a Senior in Mechanical Engineering at Imperial College London.</p>")
+          $("#description").append('<p class="describe">Xavier Lavenir is a Senior in Mechanical Engineering at Imperial College London. He will be graduating in May 2016 with a Masters.</p>')
       });
     });
   </script>
@@ -424,7 +424,7 @@ unsensorized Zumy simply because it meant that we had to modifiy the hardware on
       </div>
       <div class="row">
       <div class="twelve columns" style="text-align:center;" id="description">
-        <p>Hover over a picture to read a bio!</p>
+        <p class="describe">Hover over a picture to read a bio!</p>
       </div>
  	  </div>
      

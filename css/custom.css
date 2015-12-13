@@ -46,3 +46,7 @@ div {
     left:0; top:92px; bottom: 0px;
     width: 178px;
 }
+
+.describe {
+  font-size: 2em;
+}
