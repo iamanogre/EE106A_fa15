@@ -141,9 +141,9 @@
                <h5 class="under">Design Criteria</h5>
         <p>The final design choices meet several design criteria relatively well and others not so well. For example, our system is not entirely
         robust. The code is heavily dependant on the existing ROS software but if any node, other than the Zumy node, crashes, the
-        entire system will hang. There is one point of robustness and this is if the Zumy does not see an AR tag, the global camera will still capture its position.
+        entire system will hang. There is one point of robustness and this is if the Zumy does not see an AR tag, the global camera will still capture its position.</p>
         
-        <br>
+        <p>
         
         Despite this setback, our design is clean and efficient. We had the explorer node (covered in more detail below) assign sections of exploration so the Zumies do not overlap in their exploration regions and search the same areas 
         twice. The intent was to find light to charge the Zumies, so having them conserve energy while looking for places to charge is 
@@ -152,10 +152,10 @@
         algorithm is easy to locate and accomplish. We can further adapt the controller node (also discussed in more detail below) to send different information to our explorer node for better
         feedback.
         
-        <br>
+        </p>><p>
         
         Some of the design criteria that we fail to meet in a real-world robotics setting is due to the fact that our system is built largely from existing implementation, namely ROS. For example, problems such as 
-        recovering from crashes in ROS is not something we have knowledge of.  <br> Ultimately, we believe we did well to meet design criteria that we did have control of.
+        recovering from crashes in ROS is not something we have knowledge of.  </p><p> Ultimately, we believe we did well to meet design criteria that we did have control of.</p>
         
          </p>
       </div>
@@ -171,23 +171,23 @@
           <p>The final positioning system consisted of using the camera mounted on the Zumy as well as a global camera overlooking 
           the region to be explored. The global camera is only used to update the position of the Zumy when no landmark AR tags 
           are in the field of view of the mounted camera – as previously mentioned, this is done to simulate the Kalman filter.</p>
-          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate and the 
+          <p>The state of the Zumy can be described using 3 different parameters: the x coordinate, the y coordinate, and the 
           orientation denoted by theta. All parameters are measured relative to the origin as shown in the figure below – 
           therefore a positive theta is measured from the positive y-axis for a positive rotation around the z-axis.</p>
 
-          <p>The following section discusses how each of these methods are used to estimate the positions of the Zumy.</p>
+          <p>The following sections discuss how each of these methods are used to estimate the positions of the Zumy.</p>
 
           <h5 class="under">Mounted Camera</h5>
           <p>As seen in the figure below, the mounted camera is used to calculate the transform from the Zumy to the Landmark AR 
           tag. As the AR tags are placed at known positions and orientations around the region to be explored, it is possible to
           estimate the Zumy’s position. Each time the Zumy sees one of these AR tags, it calculates (using forward kinematics) the
-          transform from the origin to itself and thus both the position and orientation of the Zumy, relative to the origin, can
+          transform from the origin to itself and thus, both the position and orientation of the Zumy, relative to the origin, can
           be inferred. </p>
 
           <p style="text-align:center;"><img src="img/rviz.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
 
           <p>The figure below shows the case where the Zumy is facing AR tag 3. The position can then be easily calculated using 
-          the formula below since the transform from the origin to the AR tag is known and the Zumy’s camera can measure the
+          the formula below because the transform from the origin to the AR tag is known and the Zumy’s camera can measure the
           transform the Zumy to the AR tag.</p>
 
           <p style="text-align:center;"><img src="img/equations1.png" alt="Flow Chart" style="width:100%; height:auto;"></p>
